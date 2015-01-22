@@ -72,7 +72,7 @@ class OkhubApiObject {
    * Constructor.
    */
   public function __construct($object) {
-    // Basic fields, present in all responses.
+    /*Basic fields, present in all responses.*/
     if (isset($object['object_id'])) {
       $this->object_id = $object['object_id'];
     }
@@ -91,27 +91,31 @@ class OkhubApiObject {
     }
     //title
     if (isset($object['title'])) {
-      foreach($object['title'] as $s=>$v){
-      	if (!empty($v['en'][0])){      
-      		$this->title = $v['en'][0];
-      		break;
-      	} 
-	if (!empty($v['fr'][0])){      
-      		$this->title = $v['fr'][0];
-      		break;
-      	} 
-      }
+      if(is_array($object['title'])){
+		  foreach($object['title'] as $s=>$v){
+			if (!empty($v['en'][0])){      
+				$this->title = $v['en'][0];
+				break;
+			} 
+			if (!empty($v['fr'][0])){      
+				$this->title = $v['fr'][0];
+				break;
+			} 
+		  }
+	  }
     }
     //titles
     if(isset($object['title'])){
-    	foreach($object['title'] as $s=>$v){
-		if (!empty($v['en'][0])){      
-			$this->titles[$s] = $v['en'][0];
+      if(is_array($object['title'])){
+			foreach($object['title'] as $s=>$v){
+				if (!empty($v['en'][0])){      
+					$this->titles[$s] = $v['en'][0];
+				}
+				if (!empty($v['fr'][0])){      
+					$this->titles[$s] = $v['fr'][0];
+				}
+			}
 		}
-		if (!empty($v['fr'][0])){      
-			$this->titles[$s] = $v['fr'][0];
-		}
-      	}
      }
     if (isset($object['timestamp'])) {
       $this->timestamp = $object['timestamp'];
