@@ -17,7 +17,7 @@
 	float:right;
 }
 #main_container{
-	width:70%;
+	width:100%;
 	float:left;
 	
 }
@@ -107,16 +107,16 @@ ul.okhub_list li{
 </head>
 <body>
 <!--<script src="http://localhost/okhub_wrapper/okhub_widget.js?type=search&token_guid=5c96d95b-c729-4624-b1c2-14c6b98dc9ce" type="text/javascript"></script>-->
-<script src="http://opendataph.com/okhub/okhub_widget.js?type=search&_token_guid=5c96d95b-c729-4624-b1c2-14c6b98dc9ce" type="text/javascript"></script>
+<!--<script src="http://opendataph.com/okhub/okhub_widget.js?type=search&_token_guid=5c96d95b-c729-4624-b1c2-14c6b98dc9ce" type="text/javascript"></script>
 
-<div id="open-knowledge-hub-widget">Sample Widget</div>
+<div id="open-knowledge-hub-widget">Sample Widget</div>-->
 <div id="main_container">
 <?php
 require_once('wrapper/okhubwrapper.wrapper.inc');
 $valid_api_key = '5c96d95b-c729-4624-b1c2-14c6b98dc9ce';
 $okhubapi = new OkhubApiWrapper;
 $sources = array('opendocs','eldis','observaction','bridge','heart','pids','ccccc','ella','serpp');
-
+/*
 echo "<h2>OkHub Javascript Web Widget</h2>";
 echo "<p><a href='http://api.okhub.org/accounts/login/?next=/profiles/view/' target=_new>Register to get your API key</a>. The API key is required both on the widget and wrapper class.</p>";
 echo "<textarea style='width:100%;height:50px;' disabled><script src=\"http://opendataph.com/okhub/okhub_widget.js?type=search&_token_guid={your-api-key}\" type=\"text/javascript\"></script>
@@ -128,7 +128,7 @@ echo "<li>country={country_name}, e.g. <pre>&country=India</pre></li>";
 echo "<li>theme={theme_name}, e.g. <pre>&theme=Education</pre></li>";
 echo "<li>Or Combination of any two or all three paramaters, e.g. <pre>&theme=Education&q=ICT&country=India</pre></li></ul><br/>";
 echo "<a href='okhub.css' target=_new>Link to sample css</a><br/><br/>";
-echo "<a href='admin/'>Customise the widget</a><br/>";
+echo "<a href='admin/'>Customise the widget</a><br/>";*/
 echo "<hr>";
 echo "<h2>OkHub PHP Wrapper Class</h2>";
 echo '$sources = array(\'opendocs\',\'eldis\',\'observaction\',\'bridge\',\'heart\',\'pids\',\'ccccc\',\'ella\',\'serpp\')';
@@ -142,7 +142,7 @@ echo '<hr>';
 echo "<b>Example 1.</b> Get an array, indexed by object_id, with the titles of Okhub documents about poverty in the Philippines.\n\n";
 echo '<pre>';
 echo '$response = $okhubapi->search(\'documents\', \'hub\', $valid_api_key, \'short\', 3, 0, 0, array(\'q\' => \'Poverty\', \'country\' => \'Philippines\'));' . "\n";
-$response = $okhubapi->search('documents', 'hub', $valid_api_key, 'short', 5, 0, 0, array('country' => 'Philippines', 'theme'=>'POverty'));
+$response = $okhubapi->search('documents', 'hub', $valid_api_key, 'short', 5, 0, 0, array('country' => 'Philippines', 'theme'=>'Poverty'));
 echo '$response->getArrayTitles(): ';
 echo '<textarea style="width:100%;height:400px;" disabled>$response: ';
 print_r($response->getArrayTitles());
@@ -162,8 +162,8 @@ echo '<hr>';
 
 echo "<b>Example 3.</b> Search the two most recent Okhub organisations .\n\n";
 echo '<pre>';
-echo '$response = $okhubapi->search(\'organisations\', \'hub\', $valid_api_key, \'short\', 2, 0);' . "\n\r";
-$response = $okhubapi->search('organisations', 'hub', $valid_api_key, 'short', 2, 0);
+echo '$response = $okhubapi->search(\'themes\', \'hub\', $valid_api_key, \'short\', 2, 0);' . "\n\r";
+$response = $okhubapi->search('themes', 'hub', $valid_api_key, 'short', 10, 0);
 echo '<textarea style="width:100%;height:400px;" disabled>$response: ';
 print_r($response);
 echo '</textarea></pre>';
