@@ -1,7 +1,7 @@
 <?php
 
 /**
-* IdsApiCache Class.
+* OkhubApiCache Class.
 * This class provides a simple file-based cache mechanism.
 *
 * The code is adapted from Pettakam, a simple cache library developed by Vimal Sudhan <me@vimalsudhan.com>
@@ -10,8 +10,7 @@
 * @license Dual-licensed (Apache License 2.0 and GNU GPL 3.0)
 * http://code.vimalsudhan.com/pettakam
 */
-
-class IdsApiCache{
+class OkhubApiCache{
 	
 	private $repository = OKHUB_API_CACHE_DIR;
 	private $file_extension = 'data';
@@ -32,7 +31,7 @@ class IdsApiCache{
         return TRUE;
       }
       else {
-        idsapi_register_error('idsapi', __('Cache directory is not writable: ') . $this->repository, 'IdsApiCache::dir_writable', 'warning');
+        okhubapi_register_error('okhubapi', __('Cache directory is not writable: ') . $this->repository, 'OkhubApiCache::dir_writable', 'warning');
         return FALSE;
       }
     }
@@ -41,13 +40,13 @@ class IdsApiCache{
         return TRUE;
       }
       else {
-        idsapi_register_error('idsapi', __('Cache directory could not be created: ') . $this->repository, 'IdsApiCache::dir_writable', 'warning');
+        okhubapi_register_error('okhubapi', __('Cache directory could not be created: ') . $this->repository, 'OkhubApiCache::dir_writable', 'warning');
         return FALSE;
       }
     }
   }
 	
-	public function get($var)	{
+  public function get($var)	{
     $file = $this->repository . '/' . $var . '.' . $this->file_extension;
     if (file_exists($file)) {
       $cache_str = @file_get_contents($file);
@@ -84,22 +83,22 @@ class IdsApiCache{
 	}
 	
 	public function clear_all()	{
-    if ($this->dir_writable()) {
-      array_map('unlink', glob($this->repository . '/*'));
-    }
+	    if ($this->dir_writable()) {
+	      array_map('unlink', glob($this->repository . '/*'));
+	    }
 	}
 	
 	public function clear_group($group)	{
 		$file_extension = '.' . $this->file_extension;
 		if ($handle = opendir($this->repository)) {
-      while (false !== ($file = readdir($handle))) {
-    		if (substr($file, strlen($file_extension)*-1) === $file_extension && $file != '.' && $file != '..') {
-    			$cache_str = file_get_contents($this->repository .  '/'  . $file);
-    			$cache = unserialize($cache_str);
-    			if(!isset($cache['expires']) || !isset($cache['data']) || !isset($cache['group']) || $cache['group'] != $group)
-    				continue;
-		   		file_put_contents($this->repository .  '/'  . $file, '');
-    		}
+			while (false !== ($file = readdir($handle))) {
+				if (substr($file, strlen($file_extension)*-1) === $file_extension && $file != '.' && $file != '..') {
+					$cache_str = file_get_contents($this->repository .  '/'  . $file);
+					$cache = unserialize($cache_str);
+					if(!isset($cache['expires']) || !isset($cache['data']) || !isset($cache['group']) || $cache['group'] != $group)
+						continue;
+						file_put_contents($this->repository .  '/'  . $file, '');
+				}
 		  }
 		  closedir($handle);
 		}
