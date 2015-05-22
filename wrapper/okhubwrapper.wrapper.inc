@@ -17,7 +17,7 @@ if (!defined('OKHUB_API_ENVIRONMENT')) define('OKHUB_API_ENVIRONMENT', 'generic'
 
 switch (OKHUB_API_ENVIRONMENT) {
   case 'drupal':
-    require_once('cms/idswrapper.drupal.inc');
+    require_once('cms/okhubwrapper.drupal.inc');
     break;
   case 'wordpress':
     // In this case we also include the generic functions.
