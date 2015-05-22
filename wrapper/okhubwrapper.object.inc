@@ -705,6 +705,9 @@ class OkhubApiObjectSource extends OkhubApiObject {
   // Source code ID
   public $code;
 
+  // Type of source (semantic etc...)
+  public $okhub_is;
+
   /**
    * Constructor.
    */
@@ -719,6 +722,9 @@ class OkhubApiObjectSource extends OkhubApiObject {
 		$this->name = $object['okhub']['name'];
      }
     }
+    if (isset($object['okhub_is'])) {
+		$this->okhub_is = $object['okhub_is'];
+     }
   }
 
 }
