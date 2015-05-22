@@ -57,11 +57,14 @@ class OkhubApiObject {
         return new OkhubApiObjectCategory($object);
       case 'countries':
         return new OkhubApiObjectCountry($object);
+      case 'sources':
+        return new OkhubApiObjectSource($object);
       case 'country_count':
       case 'theme_count':
       case 'region_count':
       case 'subject_count':
       case 'keyword_count':
+      case 'source_count':
         return new OkhubApiCount($object, $object_type);
       default:
         return new OkhubApiObject($object);
@@ -674,6 +677,52 @@ class OkhubApiObjectCountry extends OkhubApiObject {
   }
 
 }
+
+
+/**
+ * OkhubApiObjectSource class.
+ * 
+ * The objects of this class contain the information of all thhe sources from the OKhub collection.
+ *
+ */
+ 
+class OkhubApiObjectSource extends OkhubApiObject {
+
+  /*
+  Inherited:
+
+  OkhubApiObject properties:
+  public $object_id;
+  public $object_type;
+  public $title;
+  public $site = 'eldis';
+  public $metadata_url;
+  public $timestamp;
+  public $website_url;
+  public $name;
+  */
+
+  // Source code ID
+  public $code;
+
+  /**
+   * Constructor.
+   */
+  function __construct($object) {
+    parent::__construct($object);
+	//print_r($object);
+    if (isset($object['okhub'])) {
+     if (isset($object['okhub']['code'])) {
+		$this->code = $object['okhub']['code'];
+     }
+     if (isset($object['okhub']['code'])) {
+		$this->name = $object['okhub']['name'];
+     }
+    }
+  }
+
+}
+
 
 /**
  * OkhubApiCount class.
