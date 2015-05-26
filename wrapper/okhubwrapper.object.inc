@@ -718,8 +718,11 @@ class OkhubApiObjectSource extends OkhubApiObject {
      if (isset($object['okhub']['code'])) {
 		$this->code = $object['okhub']['code'];
      }
-     if (isset($object['okhub']['code'])) {
+     if (isset($object['okhub']['name'])) {
 		$this->name = $object['okhub']['name'];
+     }
+     if (isset($object['okhub']['title'])) {
+		$this->title = $object['okhub']['title'];
      }
     }
     if (isset($object['okhub_is'])) {
