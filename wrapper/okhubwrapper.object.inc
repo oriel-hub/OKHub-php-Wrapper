@@ -34,6 +34,12 @@ class OkhubApiObject {
 
   // Name of the object.
   public $name;
+  
+  // Hub variables 
+  public $hub_item_type;
+  public $hub_metadata_languages;
+  public $hub_item_id;
+  public $hub_timestamp;
 
   /**
    * Factory method used to create OkhubApiObject objects, depending on its type.
@@ -137,6 +143,18 @@ class OkhubApiObject {
     else {
       //$this->name = $this->title;
     }
+    $this->build_hub_vars($object);
+  }
+  
+  public function build_hub_vars($object){
+	foreach($this as $var => $value) {
+    	if(substr($var, 0, 4) == 'hub_'){
+    		if (isset($object[$var])){
+    			$this->{$var} = $object[$var];
+    		}
+    	}
+    }
+      	
   }
 
 }
@@ -175,8 +193,14 @@ abstract class OkhubApiObjectAsset extends OkhubApiObject {
 
   // Description. String. Description of the document or organisation.
   public $description;
-  public $hub_themes;
+  public $hub_themes; /* Think we should just use hub_theme (below) */
 
+  // Hub variables 
+  public $hub_organisation;
+  public $hub_region;
+  public $hub_subject;
+  public $hub_theme;
+  public $hub_country;
 
   /**
    * Constructor.
@@ -233,7 +257,7 @@ abstract class OkhubApiObjectAsset extends OkhubApiObject {
     		}
     	}
     }
-    
+    $this->build_hub_vars($object);
   }
 
 }
@@ -314,9 +338,6 @@ class OkhubApiObjectAssetDocument extends OkhubApiObjectAsset {
 
   // Type of document. Array of strings.
   public $document_type;
-  public $hub_region;
-  public $hub_country;
-  public $hub_timestamp;
   public $hub_sources;
   public $document_medium;
   public $country_focus;
@@ -399,25 +420,11 @@ class OkhubApiObjectAssetDocument extends OkhubApiObjectAsset {
     if (isset($object['document_type'])) {
       $this->document_type = $object['document_type'];
     }
-    if (isset($object['hub_country'])) {
-    	    foreach($object['hub_country'] as $s=>$v){
-    	    	    $this->hub_country[$s] = $v;
-    	    }
-    }
    if (isset($object['country_focus'])) {
     	    foreach($object['country_focus'] as $s=>$v){
     	    	    $this->country_focus[$s] = $v;
     	    }
     }
-    if (isset($object['hub_timestamp'])) {
-      $this->hub_timestamp = $object['hub_timestamp'];
-    }
-    if (isset($object['hub_region'])) {
-    	  foreach($object['hub_region'] as $s=>$v){ // $s is source, $v is value
-    	  	  $this->hub_region[$s] = $v;
-      	  }
-    
-     }
      if (isset($object['sources'])) {
       $this->hub_sources = $object['sources'];
     }
@@ -713,7 +720,6 @@ class OkhubApiObjectSource extends OkhubApiObject {
    */
   function __construct($object) {
     parent::__construct($object);
-	//print_r($object);
     if (isset($object['okhub'])) {
      if (isset($object['okhub']['code'])) {
 		$this->code = $object['okhub']['code'];
