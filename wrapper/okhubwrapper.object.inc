@@ -608,6 +608,9 @@ class OkhubApiObjectCategory extends OkhubApiObject  {
     if (isset($object['object_name'])) {
       $this->name = $object['object_name'];
     }
+    if (isset($object['title'])) {
+      $this->title = $object['title'];
+    }
     if (isset($object['metadata_url'])) {
       $this->metadata_url = $object['metadata_url'];
     }
