@@ -18,6 +18,9 @@ class OkhubApiObject {
   // Title of the object.
   public $title;
   
+  // Name of the object.
+  public $name;
+  
   // Title of the object.
   public $hub_data;
 
