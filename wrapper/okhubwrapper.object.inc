@@ -8,18 +8,6 @@
  *
  */
 class OkhubApiObject {
-
-  // Unique identifier of this object (for example, A1417)
-  public $hub_item_id;
-
-  // Type of object. String. (Document, Publication, Theme, Region, Country).
-  public $ihub_item_type;
-  
-  // Title of the object.
-  public $title;
-  
-  // Name of the object.
-  public $name;
   
   // Title of the object.
   public $hub_data;
@@ -64,7 +52,7 @@ class OkhubApiObject {
    * Constructor.
    */
   public function __construct($object) {
-    $this->build_public_vars($object);
+   // $this->build_public_vars($object);
     $this->hub_data = $object;
   }
   
@@ -76,10 +64,30 @@ class OkhubApiObject {
     }   	
   }
   
-  public function get_value($field_name){
+  public function get_value_object($field_name){
     if (isset($this->hub_data[$field_name])){
     	return $this->hub_data[$field_name];
-    }   	
+    }  
+    return FALSE; 	
+  }
+  
+  public function get_value($field_name, $source_id, $language_id){
+  	if ($value_obj = get_value_object($field_name)){
+    	if(is_array($value_obj)){
+    		if(isset($value_obj[$source_id])){
+    			if(isset($value_obj[$source_id][$language_id])){
+    				return $value_obj[$source_id][$language_id];
+    			} else {
+    				return $value_obj[$source_id];
+    			}
+    		} else {
+    			return $value_obj;
+    		}
+    	} else {
+    		return $value_obj;
+    	}
+    }   
+    return FALSE;	
   }
 
 }
@@ -179,6 +187,8 @@ class OkhubApiObjectCountry extends OkhubApiObject {
 class OkhubApiObjectSource extends OkhubApiObject {
   // Source code ID
   public $code;
+  public $name;
+  public $title;
   // Type of source (semantic etc...)
   public $okhub_is;
   /**

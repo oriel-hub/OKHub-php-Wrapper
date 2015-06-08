@@ -28,6 +28,12 @@ class OkhubApiRequest {
 
   // From where to get the information: eldis, bridge. Default is the defined default (eldis).
   protected $site = OKHUB_API_DEFAULT_DATASET;
+  
+  // datasource we use for priority
+  protected $priority_datasource = 'eldis';
+  
+  // language we use for priority
+  protected $priority_language = 'en';
 
   // Type of request (search, get, get_all).
   protected $type_request = OKHUB_API_DEFAULT_TYPE_REQUEST;
@@ -132,7 +138,23 @@ class OkhubApiRequest {
   public function setSite($site) {
     $this->site = $site;
   }
-
+  
+  /**
+  * Method used to set the "Priority Source" parameter of the request.
+  * @param string $set - data source used as preference for return
+  */
+  public function setPriorityDatasource($source_id) {
+    $this->priority_datasource = $source_id;
+  }
+  
+  /**
+  * Method used to set the "Priority Language" parameter of the request.
+  * @param string $set - data source used as preference for return
+  */
+  public function setPriorityLanguage($lang_id) {
+    $this->priority_language = $lang_id;
+  }
+  
   /**
   * Add an additional parameter to the call (for instance, search parameters).
   * @param string $key - query field.
@@ -212,6 +234,22 @@ class OkhubApiRequest {
   */
   public function getSite() {
     return $this->site;
+  }
+  
+  /**
+  * Method used to get the "Priority Source" parameter of the request.
+  * @param string $set - data source used as preference for return
+  */
+  public function getPriorityDatasource() {
+    return $this->priority_datasource;
+  }
+  
+  /**
+  * Method used to get the "Priority Language" parameter of the request.
+  * @param string $set - language used as preference for return
+  */
+  public function getPriorityLanguage() {
+    return $this->priority_language;
   }
 
   /**

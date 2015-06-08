@@ -40,7 +40,7 @@ class OkhubApiResponse {
   * @param bool $cached - indicates if the response was retrieved from the cache.
   */
   //function __construct($results, $format, $type_results, $total_results, $default_site, $cached = FALSE) {
-  function __construct($results, $type_results, $total_results, $default_site, $cached = FALSE) {
+  function __construct($results, $type_results, $total_results, $default_site, $cached = FALSE, $priorities = FALSE) {
     $this->results = array();
     //$this->next_page=$next_page;
     //$this->prev_page=$prev_page;
@@ -55,6 +55,9 @@ class OkhubApiResponse {
       foreach ($results as $object) {      	
         if (!isset($object['site'])) {
           $object['site'] = $default_site;
+        }
+        if (!isset($object['priorities'])) {
+        	$object['priorities'] = $priorities;
         }
         
         $ids_api_object = OkhubApiObject::factory($object, $type_results);

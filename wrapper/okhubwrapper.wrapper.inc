@@ -53,6 +53,22 @@ class OkhubApiWrapper {
   public function setSite($site) {
     $this->request->setSite($site);
   }
+  
+  /**
+  * Method used to set the "Priority Source" parameter of the request.
+  * @param string $set - data source used as preference for return
+  */
+  public function setPriorityDatasource($source_id) {
+    $this->request->setPriorityDatasource($source_id);
+  }
+  
+  /**
+  * Method used to set the "Priority Language" parameter of the request.
+  * @param string $set - language used as preference for return
+  */
+  public function setPriorityLanguage($lang_id) {
+    $this->request->setPriorityLanguage($lang_id);
+  }
 
   /**
   * Set the type of the request.
@@ -295,7 +311,11 @@ class OkhubApiWrapper {
       }
       $this->cacheSet(array($results, $total_results));
     }
-    $response = new OkhubApiResponse($results, $object_type, $total_results, $this->request->getSite(), $cached);
+    $priorities = array(
+    	'priority_datasource' => $this->request->getPriorityDatasource(),
+    	'priority_language' => $this->request->getPriorityLanguage()
+    );
+    $response = new OkhubApiResponse($results, $object_type, $total_results, $this->request->getSite(), $cached, $priorities);
     return $response;
   }
 
