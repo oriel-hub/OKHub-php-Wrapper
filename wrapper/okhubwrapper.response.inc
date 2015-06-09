@@ -38,6 +38,7 @@ class OkhubApiResponse {
   * @param string $total_results - total number of results available in the dataset.
   * @param string $default_site - dataset ('eldis', 'bridge').
   * @param bool $cached - indicates if the response was retrieved from the cache.
+  * @param array $priorities - array with attributes 'priority_datasource' and 'priority_language'.
   */
   //function __construct($results, $format, $type_results, $total_results, $default_site, $cached = FALSE) {
   function __construct($results, $type_results, $total_results, $default_site, $cached = FALSE, $priorities = FALSE) {

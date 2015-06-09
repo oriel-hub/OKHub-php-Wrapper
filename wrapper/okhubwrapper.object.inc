@@ -71,15 +71,83 @@ class OkhubApiObject {
     return FALSE; 	
   }
   
-  public function get_value($field_name, $source_id, $language_id){
-  	if ($value_obj = get_value_object($field_name)){
+  public function get_value($field_name){
+    /*
+     * Get the value for this field/attribute selects from the priority source/language
+     * if available or a fallback if not
+     */
+  	//print('GETVALUE:'.$field_name.':');
+  	$value_obj = $this->get_value_object($field_name);
+  	if (isset($this->hub_data['priorities'])) {
+    	$source_id = $this->hub_data['priorities']['priority_datasource'];
+    	$language_id = $this->hub_data['priorities']['priority_language'];
+    } else {
+    	//print('no priorities');
+    	return $value_obj;
+    }
+  	if ($value_obj){
+  		//print_r($value_obj);
     	if(is_array($value_obj)){
-    		if(isset($value_obj[$source_id])){
-    			if(isset($value_obj[$source_id][$language_id])){
-    				return $value_obj[$source_id][$language_id];
-    			} else {
-    				return $value_obj[$source_id];
-    			}
+    		$choosen_obj = FALSE;
+    		$fallback_obj = FALSE;
+    		/* See if there is a hub value */
+    		if(isset($value_obj['hub'])){
+    			$choosen_obj = $value_obj['hub'];
+    			//print('hubfound:');
+    		} else {
+	    		/* If not see if there is an item for the choosen priority source */
+	    		foreach($value_obj as $source => $lang_obj){
+	    			if($source == $source_id){
+	    				$choosen_obj = $lang_obj;
+	    				//print('objfound:');
+	    			}
+	    			$fallback_obj = $lang_obj;
+	    		}
+	    		/* If not use a fallback */
+	    		if(!$choosen_obj){
+	    			$choosen_obj = $fallback_obj;
+	    		}
+	    		//print_r($choosen_obj);
+    		}
+    		/* See if there is an item for the choosen priority language */
+    		if($choosen_obj){
+	    		$choosen_value = FALSE;
+	    		$fallback_value = FALSE;
+	    	   	foreach($choosen_obj as $lang => $value){
+	    			if($lang == $language_id){
+	    				//print('langfound:');
+	    				$choosen_value = $value;
+	    			}
+	    			$fallback_value = $value;
+	    		}
+    		   	/* If not use a fallback */
+	    		if(!$choosen_value){
+	    			$choosen_value = $fallback_value;
+	    		}
+	    		if($choosen_value){
+	    			//print('GOTIT:');
+	    			/* 
+	    			 * this is what we are actually after! 
+	    			 * the other stuff is sent back for debug or are for fields that
+	    			 * dont use the standard [source][language] structure
+	    			 * 
+	    			 * Note: If it's an Array and only one element then return as string,
+	    			 * should we do this?? Most things are just single value so I think this 
+	    			 * makes it work better for the Drupal module, but can change that
+	    			 * */
+	    			if(is_array($choosen_value)){
+	    				if(count($choosen_value) == 1){
+	    					if(isset($choosen_value[0])){
+	    						$choosen_value = $choosen_value[0];
+	    						//print('TOSTR:');
+	    					}
+	    				}
+	    			}
+	    			//print($choosen_value);
+	    			return $choosen_value;
+	    		} else {
+	    			return $choosen_obj;
+	    		}
     		} else {
     			return $value_obj;
     		}

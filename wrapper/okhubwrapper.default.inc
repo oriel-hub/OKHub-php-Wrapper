@@ -47,6 +47,13 @@ define('OKHUB_API_FN_REGION', 'hub_region');
 define('OKHUB_API_FN_SUBJECT', 'hub_subject');
 define('OKHUB_API_FN_TIMESTAMP', 'hub_timestamp');
 define('OKHUB_API_FN_DESCRIPTION', 'description');
+define('OKHUB_API_FN_NAME', 'name');
+define('OKHUB_API_WEBSITE_URL', 'website_url');
+define('OKHUB_API_URLS', 'urls');
+define('OKHUB_API_DATE_CREATED', 'date_created');
+define('OKHUB_API_DATE_UPDATED', 'date_updated');
+define('OKHUB_API_DOCUMENT_TYPE', 'document_type');
+define('OKHUB_API_FN_SITE', 'hub');
 
 
 

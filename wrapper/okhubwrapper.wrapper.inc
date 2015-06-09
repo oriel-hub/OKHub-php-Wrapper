@@ -187,9 +187,10 @@ class OkhubApiWrapper {
   * @param int $age_results - only results published in this last number of days are retrieved (default 0, means no limit).
   * @param array $params - unencoded filters to be added to the request (eg. array('publisher' => 'UNDP', 'country' => 'Costa Rica|Nicaragua')).
   * @param array $extra_fields - extra fields to be returned (in short responses). (eg. array('headline', 'category_theme_array')).
+  * @param array $priorities - array with attributes 'priority_datasource' and 'priority_language'.
   * @return OkhubApiResponse - response object holding the data retrieved by the API call.
   */
-  public function search($object_type, $site, $api_key, $format = 'full', $num_requested = 0, $age_results = 0, $start_offset = 0, $params = array(), $extra_fields = array()) {
+  public function search($object_type, $site, $api_key, $format = 'full', $num_requested = 0, $age_results = 0, $start_offset = 0, $params = array(), $extra_fields = array(), $priorities = FALSE) {
     $this->request = new OkhubApiRequest();
     $this->request->setTypeRequest('search');
     $this->request->setApiKey($api_key);
@@ -201,6 +202,14 @@ class OkhubApiWrapper {
     $this->request->setOffset($start_offset);
     $this->setParameters($params);
     $this->setExtraFields($extra_fields);
+    if($priorities){
+    	if(isset($priorities['priority_datasource'])){
+    		$this->request->setPriorityDatasource($priorities['priority_datasource']);
+    	}
+        if(isset($priorities['priority_language'])){
+    		$this->request->setPriorityLanguage($priorities['priority_language']);
+    	}
+    }
     $response = $this->makeRequest();
     return $response;
   }
@@ -212,9 +221,10 @@ class OkhubApiWrapper {
   * @param string $api_key - OKHUB API token guid.
   * @param string $format - format of the responses (short, full) (default 'full').
   * @param string $object_id - object_id value of the object to be retrieved.
+  * @param array $priorities - array with attributes 'priority_datasource' and 'priority_language'.
   * @return OkhubApiResponse - response object holding the data retrieved by the API call.
   */
-  public function get($object_type, $site, $api_key, $format = 'full', $object_id) {
+  public function get($object_type, $site, $api_key, $format = 'full', $object_id, $priorities = FALSE) {
     $this->request = new OkhubApiRequest();
     $this->request->setTypeRequest('get');
     $this->request->setApiKey($api_key);
@@ -222,6 +232,14 @@ class OkhubApiWrapper {
     $this->request->setFormat($format);
     $this->request->setObjectType($object_type);
     $this->request->setObjectId($object_id);
+    if($priorities){
+    	if(isset($priorities['priority_datasource'])){
+    		$this->request->setPriorityDatasource($priorities['priority_datasource']);
+    	}
+        if(isset($priorities['priority_language'])){
+    		$this->request->setPriorityLanguage($priorities['priority_language']);
+    	}
+    }
     $response = $this->makeRequest();
     return $response;
   }
@@ -232,15 +250,24 @@ class OkhubApiWrapper {
   * @param string $site - dataset from where to retrieve the information (eldis, bridge).
   * @param string $api_key - OKHUB API token guid.
   * @param string $format - format of the responses (short, full) (default 'full').
+  * @param array $priorities - array with attributes 'priority_datasource' and 'priority_language'.
   * @return OkhubApiResponse - response object holding the data retrieved by the API call.
   */
-  public function getAll($object_type, $site, $api_key, $format = 'full') {
+  public function getAll($object_type, $site, $api_key, $format = 'full', $priorities = FALSE) {
     $this->request = new OkhubApiRequest();
     $this->request->setTypeRequest('get_all');
     $this->request->setApiKey($api_key);
     $this->request->setSite($site);
     $this->request->setFormat($format);
     $this->request->setObjectType($object_type);
+    if($priorities){
+    	if(isset($priorities['priority_datasource'])){
+    		$this->request->setPriorityDatasource($priorities['priority_datasource']);
+    	}
+        if(isset($priorities['priority_language'])){
+    		$this->request->setPriorityLanguage($priorities['priority_language']);
+    	}
+    }
     $response = $this->makeRequest();
     return $response;
   }
@@ -282,7 +309,7 @@ class OkhubApiWrapper {
   * @return bool - true if the request retrieved results, false otherwise.
   */
   public function additionalFieldsAvailable($api_key) {
-    return (!$this->search('documents', OKHUB_API_DEFAULT_DATASET, $api_key, 'short', 1, 0, array('extra_fields' => 'category_subject_array'))->isEmpty());
+    return (!$this->search('documents', OKHUB_API_DEFAULT_DATASET, $api_key, 'short', 1, 0, 0, array('extra_fields' => 'category_subject_array'))->isEmpty());
   }
 
 
