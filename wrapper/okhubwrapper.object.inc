@@ -90,8 +90,13 @@ class OkhubApiObject {
     	if(is_array($value_obj)){
     		$choosen_obj = FALSE;
     		$fallback_obj = FALSE;
-    		/* See if there is a hub value */
-    		if(isset($value_obj['hub'])){
+    	    /* See if there is a okhub value */
+    		if(isset($value_obj['okhub'])){
+    			$choosen_obj = $value_obj['okhub'];
+    			//print('hubfound:');
+    		}
+    		/* See if there is a hub value -- NOTE this will be superceeded by okhub */
+    		elseif(isset($value_obj['hub'])){
     			$choosen_obj = $value_obj['hub'];
     			//print('hubfound:');
     		} else {
@@ -113,13 +118,15 @@ class OkhubApiObject {
     		if($choosen_obj){
 	    		$choosen_value = FALSE;
 	    		$fallback_value = FALSE;
-	    	   	foreach($choosen_obj as $lang => $value){
-	    			if($lang == $language_id){
-	    				//print('langfound:');
-	    				$choosen_value = $value;
-	    			}
-	    			$fallback_value = $value;
-	    		}
+	    	   	if(is_array($choosen_obj)){
+		    		foreach($choosen_obj as $lang => $value){
+		    			if($lang == $language_id){
+		    				//print('langfound:');
+		    				$choosen_value = $value;
+		    			}
+		    			$fallback_value = $value;
+		    		}
+	    	   	}
     		   	/* If not use a fallback */
 	    		if(!$choosen_value){
 	    			$choosen_value = $fallback_value;
