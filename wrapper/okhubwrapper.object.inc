@@ -260,31 +260,11 @@ class OkhubApiObjectCountry extends OkhubApiObject {
  */
  
 class OkhubApiObjectSource extends OkhubApiObject {
-  // Source code ID
-  public $code;
-  public $name;
-  public $title;
-  // Type of source (semantic etc...)
-  public $okhub_is;
   /**
    * Constructor.
    */
   function __construct($object) {
     parent::__construct($object);
-    if (isset($object['okhub'])) {
-     if (isset($object['okhub']['code'])) {
-		$this->code = $object['okhub']['code'];
-     }
-     if (isset($object['okhub']['name'])) {
-		$this->name = $object['okhub']['name'];
-     }
-     if (isset($object['okhub']['title'])) {
-		$this->title = $object['okhub']['title'];
-     }
-    }
-    if (isset($object['okhub_is'])) {
-		$this->okhub_is = $object['okhub_is'];
-     }
   }
 
 }
