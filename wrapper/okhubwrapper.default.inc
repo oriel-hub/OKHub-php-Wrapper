@@ -55,6 +55,7 @@ define('OKHUB_API_FN_DATE_CREATED', 'date_created');
 define('OKHUB_API_FN_DATE_UPDATED', 'date_updated');
 define('OKHUB_API_FN_DOCUMENT_TYPE', 'document_type');
 define('OKHUB_API_FN_SITE', 'hub');
+define('OKHUB_API_FN_ARCHIVED', 'archived');
 
 
 

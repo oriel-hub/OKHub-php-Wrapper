@@ -164,11 +164,11 @@ class OkhubApiResponse {
   * Create an array with a list of HTML links to the retrieved non-archived objects (eg. titles with links to URLs of OKhub documents/organisations).
   * @return array - titles of retrieved items linked to the online documents (on Eldis or BRIDGE).
   */
-  function getArrayLinks() {
+  function getArrayLinks($source_id = FALSE, $language_id = FALSE) {
     $list_objects = array();
-    foreach ($this->results as $object) {
-      if ((!isset($object->archived)) || ($object->archived !== 'true')) {
-        $list_objects[$object->object_id['hub']] = '<a class="' . OKHUB_API_CSS_OBJECT .'" href="' . htmlspecialchars_decode($object->url) . '">'. $object->title. '</a>';
+   foreach ($this->results as $object) {
+      if (!$object->get_value(OKHUB_API_FN_ARCHIVED, $source_id, $language_id)) {
+      	$list_objects[$object->get_value(OKHUB_API_FN_ITEM_ID, $source_id, $language_id)] = '<a class="' . OKHUB_API_CSS_OBJECT .'" href="' . htmlspecialchars_decode($object->get_value(OKHUB_API_FN_URLS, $source_id, $language_id)) . '">'. $object->get_value(OKHUB_API_FN_TITLE, $source_id, $language_id). '</a>';
       }
     }
     return $list_objects;

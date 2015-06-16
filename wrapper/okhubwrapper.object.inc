@@ -71,7 +71,7 @@ class OkhubApiObject {
     return FALSE; 	
   }
   
-  public function get_value($field_name){
+  public function get_value($field_name, $source_id = FALSE, $language_id = FALSE){
     /*
      * Get the value for this field/attribute selects from the priority source/language
      * if available or a fallback if not
@@ -79,8 +79,12 @@ class OkhubApiObject {
   	//print('GETVALUE:'.$field_name.':');
   	$value_obj = $this->get_value_object($field_name);
   	if (isset($this->hub_data['priorities'])) {
-    	$source_id = $this->hub_data['priorities']['priority_datasource'];
-    	$language_id = $this->hub_data['priorities']['priority_language'];
+  		if(!$source_id){
+    		$source_id = $this->hub_data['priorities']['priority_datasource'];
+  		}
+  		if(!$language_id){
+    		$language_id = $this->hub_data['priorities']['priority_language'];
+  		}
     } else {
     	//print('no priorities');
     	return $value_obj;
