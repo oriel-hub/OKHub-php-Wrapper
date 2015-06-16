@@ -40,19 +40,19 @@ define('OKHUB_API_PREFIX', 'OKHUB');
 define('OKHUB_API_FN_TITLE', 'title');
 define('OKHUB_API_FN_ITEM_ID', 'hub_item_id');
 define('OKHUB_API_FN_ITEM_TYPE', 'hub_item_type');
-define('OKHUB_API_METADATA_LANGAUAGES', 'metadata_languages');
-define('OKHUB_API_METADATA_URL', 'metadata_url');
+define('OKHUB_API_FN_METADATA_LANGAUAGES', 'metadata_languages');
+define('OKHUB_API_FN_METADATA_URL', 'metadata_url');
 define('OKHUB_API_FN_ORGANISATION', 'hub_organisation');
 define('OKHUB_API_FN_REGION', 'hub_region');
 define('OKHUB_API_FN_SUBJECT', 'hub_subject');
 define('OKHUB_API_FN_TIMESTAMP', 'hub_timestamp');
 define('OKHUB_API_FN_DESCRIPTION', 'description');
 define('OKHUB_API_FN_NAME', 'name');
-define('OKHUB_API_WEBSITE_URL', 'website_url');
-define('OKHUB_API_URLS', 'urls');
-define('OKHUB_API_DATE_CREATED', 'date_created');
-define('OKHUB_API_DATE_UPDATED', 'date_updated');
-define('OKHUB_API_DOCUMENT_TYPE', 'document_type');
+define('OKHUB_API_FN_WEBSITE_URL', 'website_url');
+define('OKHUB_API_FN_URLS', 'urls');
+define('OKHUB_API_FN_DATE_CREATED', 'date_created');
+define('OKHUB_API_FN_DATE_UPDATED', 'date_updated');
+define('OKHUB_API_FN_DOCUMENT_TYPE', 'document_type');
 define('OKHUB_API_FN_SITE', 'hub');
 
 
