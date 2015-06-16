@@ -48,6 +48,7 @@ define('OKHUB_API_FN_SUBJECT', 'hub_subject');
 define('OKHUB_API_FN_TIMESTAMP', 'hub_timestamp');
 define('OKHUB_API_FN_DESCRIPTION', 'description');
 define('OKHUB_API_FN_NAME', 'name');
+define('OKHUB_API_FN_SOURCE_CODE', 'code');
 define('OKHUB_API_FN_WEBSITE_URL', 'website_url');
 define('OKHUB_API_FN_URLS', 'urls');
 define('OKHUB_API_FN_DATE_CREATED', 'date_created');
