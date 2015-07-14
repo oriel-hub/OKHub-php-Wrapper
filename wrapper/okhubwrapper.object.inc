@@ -72,11 +72,13 @@ class OkhubApiObject {
   }
   
   public function get_value($field_name, $source_id = FALSE, $language_id = FALSE){
+   
     /*
      * Get the value for this field/attribute selects from the priority source/language
      * if available or a fallback if not
      */
-  	//print('GETVALUE:'.$field_name.':');
+  	$debug_me = FALSE;
+  	if($debug_me) { print('GETVALUE:'.$field_name.':'); }
   	$value_obj = $this->get_value_object($field_name);
   	if (isset($this->hub_data['priorities'])) {
   		if(!$source_id){
@@ -86,29 +88,29 @@ class OkhubApiObject {
     		$language_id = $this->hub_data['priorities']['priority_language'];
   		}
     } else {
-    	//print('no priorities');
+    	if($debug_me) { print('no priorities');}
     	return $value_obj;
     }
   	if ($value_obj){
-  		//print_r($value_obj);
+  		if($debug_me) { print_r($value_obj);}
     	if(is_array($value_obj)){
     		$choosen_obj = FALSE;
     		$fallback_obj = FALSE;
     	    /* See if there is a okhub value */
     		if(isset($value_obj['okhub'])){
     			$choosen_obj = $value_obj['okhub'];
-    			//print('hubfound:');
+    			if($debug_me) { print('hubfound:');}
     		}
     		/* See if there is a hub value -- NOTE this will be superceeded by okhub */
     		elseif(isset($value_obj['hub'])){
     			$choosen_obj = $value_obj['hub'];
-    			//print('hubfound:');
+    			if($debug_me) { print('hubfound:');}
     		} else {
 	    		/* If not see if there is an item for the choosen priority source */
 	    		foreach($value_obj as $source => $lang_obj){
 	    			if($source == $source_id){
 	    				$choosen_obj = $lang_obj;
-	    				//print('objfound:');
+	    				if($debug_me) { print('objfound:');}
 	    			}
 	    			$fallback_obj = $lang_obj;
 	    		}
@@ -116,7 +118,7 @@ class OkhubApiObject {
 	    		if(!$choosen_obj){
 	    			$choosen_obj = $fallback_obj;
 	    		}
-	    		//print_r($choosen_obj);
+	    		if($debug_me) { print_r($choosen_obj);}
     		}
     		/* See if there is an item for the choosen priority language */
     		if($choosen_obj){
@@ -124,19 +126,19 @@ class OkhubApiObject {
 	    		$fallback_value = FALSE;
 	    	   	if(is_array($choosen_obj)){
 		    		foreach($choosen_obj as $lang => $value){
-		    			if($lang == $language_id){
-		    				//print('langfound:');
+		    			if($lang === $language_id){
+		    				if($debug_me) { print('langfound:');}
 		    				$choosen_value = $value;
 		    			}
 		    			$fallback_value = $value;
 		    		}
 	    	   	}
     		   	/* If not use a fallback */
-	    		if(!$choosen_value){
+	    	/*	if(!$choosen_value){
 	    			$choosen_value = $fallback_value;
-	    		}
+	    		}*/
 	    		if($choosen_value){
-	    			//print('GOTIT:');
+	    			if($debug_me) { print('GOTIT:'); }
 	    			/* 
 	    			 * this is what we are actually after! 
 	    			 * the other stuff is sent back for debug or are for fields that
@@ -150,19 +152,22 @@ class OkhubApiObject {
 	    				if(count($choosen_value) == 1){
 	    					if(isset($choosen_value[0])){
 	    						$choosen_value = $choosen_value[0];
-	    						//print('TOSTR:');
+	    						if($debug_me) {print('TOSTR:');}
 	    					}
 	    				}
 	    			}
-	    			//print($choosen_value);
+	    			if($debug_me) {print($choosen_value);}
 	    			return $choosen_value;
 	    		} else {
+	    			if($debug_me) {print_r($choosen_obj);}
 	    			return $choosen_obj;
 	    		}
     		} else {
+    			if($debug_me) {print_r($value_obj);}
     			return $value_obj;
     		}
     	} else {
+    		if($debug_me) {print_r($value_obj);}
     		return $value_obj;
     	}
     }   
