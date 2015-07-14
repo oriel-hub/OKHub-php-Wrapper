@@ -40,6 +40,7 @@ define('OKHUB_API_PREFIX', 'OKHUB');
 define('OKHUB_API_FN_TITLE', 'title');
 define('OKHUB_API_FN_ITEM_ID', 'hub_item_id');
 define('OKHUB_API_FN_ITEM_TYPE', 'hub_item_type');
+define('OKHUB_API_FN_DOCUMENT_TYPE', 'hub_document_type');
 define('OKHUB_API_FN_METADATA_LANGAUAGES', 'metadata_languages');
 define('OKHUB_API_FN_METADATA_URL', 'metadata_url');
 define('OKHUB_API_FN_ORGANISATION', 'hub_organisation');
@@ -54,7 +55,6 @@ define('OKHUB_API_FN_WEBSITE_URL', 'website_url');
 define('OKHUB_API_FN_URLS', 'urls');
 define('OKHUB_API_FN_DATE_CREATED', 'date_created');
 define('OKHUB_API_FN_DATE_UPDATED', 'date_updated');
-define('OKHUB_API_FN_DOCUMENT_TYPE', 'document_type');
 define('OKHUB_API_FN_SITE', 'hub');
 define('OKHUB_API_FN_ARCHIVED', 'archived');
 
