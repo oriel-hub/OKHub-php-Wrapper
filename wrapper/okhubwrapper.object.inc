@@ -77,6 +77,8 @@ class OkhubApiObject {
      * Get the value for this field/attribute selects from the priority source/language
      * if available or a fallback if not
      */
+  	$exceptions_array = array('sources');
+  	
   	$debug_me = FALSE;
   	if($debug_me) { print('GETVALUE:'.$field_name.':'); }
   	$value_obj = $this->get_value_object($field_name);
@@ -94,6 +96,11 @@ class OkhubApiObject {
   	if ($value_obj){
   		if($debug_me) { print_r($value_obj);}
     	if(is_array($value_obj)){
+    		/* first check if theis is an exception -- where we just want the array returned raw e.g. sources */
+    		if(in_array($field_name, $exceptions_array)){
+    			return $value_obj;
+    		}
+
     		$choosen_obj = FALSE;
     		$fallback_obj = FALSE;
     	    /* See if there is a okhub value */
