@@ -71,6 +71,17 @@ class OkhubApiObject {
     return FALSE; 	
   }
   
+  function single_value_to_string($arr){
+  	if(is_array($arr)){
+	  	if(count($arr) == 1){
+	  		if(isset($arr[0])){
+	  			return $arr[0];
+	  		}
+	  	}
+  	}
+  	return $arr;
+  }
+  
   public function get_value($field_name, $source_id = FALSE, $language_id = FALSE){
    
     /*
@@ -155,27 +166,27 @@ class OkhubApiObject {
 	    			 * should we do this?? Most things are just single value so I think this 
 	    			 * makes it work better for the Drupal module, but can change that
 	    			 * */
-	    			if(is_array($choosen_value)){
+	    		/*	if(is_array($choosen_value)){
 	    				if(count($choosen_value) == 1){
 	    					if(isset($choosen_value[0])){
 	    						$choosen_value = $choosen_value[0];
 	    						if($debug_me) {print('TOSTR:');}
 	    					}
 	    				}
-	    			}
+	    			}*/
 	    			if($debug_me) {print($choosen_value);}
-	    			return $choosen_value;
+	    			return $this->single_value_to_string($choosen_value);
 	    		} else {
 	    			if($debug_me) {print_r($choosen_obj);}
-	    			return $choosen_obj;
+	    			return $this->single_value_to_string($choosen_obj);
 	    		}
     		} else {
     			if($debug_me) {print_r($value_obj);}
-    			return $value_obj;
+    			return $this->single_value_to_string($value_obj);
     		}
     	} else {
     		if($debug_me) {print_r($value_obj);}
-    		return $value_obj;
+    		return $this->single_value_to_string($value_obj);
     	}
     }   
     return FALSE;	
