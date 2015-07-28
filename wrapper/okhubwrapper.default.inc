@@ -46,6 +46,7 @@ define('OKHUB_API_FN_METADATA_URL', 'metadata_url');
 define('OKHUB_API_FN_ORGANISATION', 'hub_organisation');
 define('OKHUB_API_FN_REGION', 'hub_region');
 define('OKHUB_API_FN_SUBJECT', 'hub_subject');
+define('OKHUB_API_FN_THEME', 'hub_theme');
 define('OKHUB_API_FN_TIMESTAMP', 'hub_timestamp');
 define('OKHUB_API_FN_DESCRIPTION', 'description');
 define('OKHUB_API_FN_NAME', 'name');
