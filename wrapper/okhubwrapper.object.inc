@@ -155,9 +155,9 @@ class OkhubApiObject {
 		    		}
 	    	   	}
     		   	/* If not use a fallback lang -- unless the key is numeric then assume doesn't have language depth */
-	    		if(!$choosen_value && !is_numeric($fallback_key)){
+	    	/*	if(!$choosen_value && !is_numeric($fallback_key)){
 	    			$choosen_value = $fallback_value;
-	    		}
+	    		}*/
 	    		if($choosen_value){
 	    			if($debug_me) { print('GOTIT:'); }
 	    			/* 
