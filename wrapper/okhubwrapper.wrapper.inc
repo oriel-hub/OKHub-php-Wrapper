@@ -564,8 +564,8 @@ class OkhubApiWrapper {
 	/**
 	 * Get array of all sources in the form key=source code, value=source name
 	 */
-	public function okhubapi_get_sources_options($api_key, $priorities = array()){
-	    $sources_data = $this->okhubapi_get_full_source_data($api_key, $priorities);
+	public function okhubapi_get_sources_options($api_key){
+	    $sources_data = $this->okhubapi_get_full_source_data($api_key);
 	    static $sources_options = false;
 	    if(!$sources_options){
 		    $sources_options = array();
@@ -589,10 +589,10 @@ class OkhubApiWrapper {
 	/*
 	 * function to get full source data from api and store in static (as not often to change)
 	 */
-	public function okhubapi_get_full_source_data($api_key, $priorities = array()){
+	public function okhubapi_get_full_source_data($api_key){
 		static $sources_data = false;
 		if(!$sources_data){
-  			$sources_response = $this->getAll('sources', OKHUB_API_DEFAULT_DATASET, $api_key, 'full', $priorities);
+  			$sources_response = $this->getAll('sources', OKHUB_API_DEFAULT_DATASET, $api_key, 'full');
 			if(isset($sources_response->results)){
 				$sources_data = $sources_response->results;
 			}
@@ -603,8 +603,8 @@ class OkhubApiWrapper {
 	/*
 	 * function to get source name from id 
 	 */
-	public function okhubapi_get_source_name_from_id($source_id, $api_key, $priorities = array()){
-	    $sources_options = $this->okhubapi_get_sources_options($api_key, $priorities);
+	public function okhubapi_get_source_name_from_id($source_id, $api_key){
+	    $sources_options = $this->okhubapi_get_sources_options($api_key);
 		if(isset($sources_options[$source_id])){
 			return $sources_options[$source_id];
 		}
