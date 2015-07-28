@@ -126,6 +126,7 @@ class OkhubApiObject {
     		} else {
 	    		/* If not see if there is an item for the choosen priority source */
 	    		foreach($value_obj as $source => $lang_obj){
+	    			if($debug_me){ print('SOURCE:'.$source); }
 	    			if($source == $source_id){
 	    				$choosen_obj = $lang_obj;
 	    				if($debug_me) { print('objfound:');}
@@ -142,6 +143,7 @@ class OkhubApiObject {
     		if($choosen_obj){
 	    		$choosen_value = FALSE;
 	    		$fallback_value = FALSE;
+	    		$fallback_key = 0;
 	    	   	if(is_array($choosen_obj)){
 		    		foreach($choosen_obj as $lang => $value){
 		    			if($lang === $language_id){
@@ -149,12 +151,13 @@ class OkhubApiObject {
 		    				$choosen_value = $value;
 		    			}
 		    			$fallback_value = $value;
+		    			$fallback_key = $lang;
 		    		}
 	    	   	}
-    		   	/* If not use a fallback */
-	    	/*	if(!$choosen_value){
+    		   	/* If not use a fallback lang -- unless the key is numeric then assume doesn't have language depth */
+	    		if(!$choosen_value && !is_numeric($fallback_key)){
 	    			$choosen_value = $fallback_value;
-	    		}*/
+	    		}
 	    		if($choosen_value){
 	    			if($debug_me) { print('GOTIT:'); }
 	    			/* 

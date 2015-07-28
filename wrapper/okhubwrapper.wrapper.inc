@@ -555,5 +555,60 @@ class OkhubApiWrapper {
   public function cacheFlush() {
     okhubapi_cache_flush();
   }
+  
+  /*
+   * JoeMcP -- the following functions were pulled from the OKhub Drupal module
+   * these helper functions could be usefull for other apps such as a Wordpress plugin
+   */
+  
+	/**
+	 * Get array of all sources in the form key=source code, value=source name
+	 */
+	public function okhubapi_get_sources_options($api_key, $priorities = array()){
+	    $sources_data = $this->okhubapi_get_full_source_data($api_key, $priorities);
+	    static $sources_options = false;
+	    if(!$sources_options){
+		    $sources_options = array();
+		    if($sources_data){
+			    foreach($sources_data as $source){
+			    	unset($source->hub_data['']);
+			    	$is_semantic = FALSE;
+		    		if($source->get_value('is_semantic')){
+		    			$is_semantic = TRUE;
+		    		}
+			    	if($source->get_value(OKHUB_API_FN_SOURCE_CODE) && $source->get_value(OKHUB_API_FN_NAME) && !$is_semantic){
+			    		$sources_options[$source->get_value(OKHUB_API_FN_SOURCE_CODE)] = $source->get_value(OKHUB_API_FN_NAME);
+			    	}
+			    }
+		    }
+	    }
+	    asort($sources_options);
+	 	return $sources_options;
+	}
+	
+	/*
+	 * function to get full source data from api and store in static (as not often to change)
+	 */
+	public function okhubapi_get_full_source_data($api_key, $priorities = array()){
+		static $sources_data = false;
+		if(!$sources_data){
+  			$sources_response = $this->getAll('sources', OKHUB_API_DEFAULT_DATASET, $api_key, 'full', $priorities);
+			if(isset($sources_response->results)){
+				$sources_data = $sources_response->results;
+			}
+		}
+		return $sources_data;
+	}
+	
+	/*
+	 * function to get source name from id 
+	 */
+	public function okhubapi_get_source_name_from_id($source_id, $api_key, $priorities = array()){
+	    $sources_options = $this->okhubapi_get_sources_options($api_key, $priorities);
+		if(isset($sources_options[$source_id])){
+			return $sources_options[$source_id];
+		}
+		return false;
+	}
 
 } // Class OKhubApiWrapper
