@@ -38,7 +38,11 @@ define('OKHUB_API_PREFIX', 'OKHUB');
 
 define('OKHUB_API_ISO_CODE_DATA_URL', 'http://www.oorsprong.org/websamples.countryinfo/CountryInfoService.wso/ListOfCountryNamesByCode/JSON');
 
-//Field name constants (whilst API is still in flux)
+/*
+ * Atribute/Field name constants (whilst API is still in flux)
+ */
+
+/* Hub Attributes from API */
 define('OKHUB_API_FN_TITLE', 'title');
 define('OKHUB_API_FN_ITEM_ID', 'hub_item_id');
 define('OKHUB_API_FN_ITEM_TYPE', 'hub_item_type');
@@ -61,6 +65,18 @@ define('OKHUB_API_FN_DATE_UPDATED', 'date_updated');
 define('OKHUB_API_FN_SITE', 'hub');
 define('OKHUB_API_FN_ARCHIVED', 'archived');
 
+
+/* 
+ * Old Eldis/Bridge attibutes that need Hub attribute equivilants 
+ * -to work with the Drupal module the structure of these attributes (the array)
+ * needs to be the same, assume it will not be quite the same so the Drupal module
+ * will need to be updated. 
+ * Use attributes below with caution and there are more prone to change structure as well as name    
+ * */
+define('OKHUB_API_FN_THEME_DATA', 'category_theme_array');
+define('OKHUB_API_FN_SUBJECT_DATA', 'category_subject_array');
+define('OKHUB_API_FN_REGION_DATA', 'category_region_array');
+define('OKHUB_API_FN_COUNTRY_DATA', 'country_focus_array');
 
 
 
