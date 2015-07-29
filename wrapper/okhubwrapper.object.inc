@@ -96,7 +96,9 @@ class OkhubApiObject {
   public function get_value($field_name, $source_id = FALSE, $language_id = FALSE){
     /*
      * Get the value for this field/attribute selects from the priority source/language
-     * if available or a fallback if not
+     * Attempts to get the varible/arry that is contained in the standard [source][language] structure
+     * if available or a returns what it finds if that structure is not there and/or uses aternatives
+     * if priority source or language not found (i.e. it tries to return something of value!)
      */
   	$exceptions_array = array('sources');
   	global $okhub_wrapper_iso_country_data;
@@ -173,22 +175,12 @@ class OkhubApiObject {
 	    		if($choosen_value){
 	    			if($debug_me) { print('GOTIT:'); }
 	    			/* 
-	    			 * this is what we are actually after! 
-	    			 * the other stuff is sent back for debug or are for fields that
+	    			 * this is what we are usually after! 
+	    			 * the other stuff is sent back for for fields that
 	    			 * dont use the standard [source][language] structure
 	    			 * 
 	    			 * Note: If it's an Array and only one element then return as string,
-	    			 * should we do this?? Most things are just single value so I think this 
-	    			 * makes it work better for the Drupal module, but can change that
 	    			 * */
-	    		/*	if(is_array($choosen_value)){
-	    				if(count($choosen_value) == 1){
-	    					if(isset($choosen_value[0])){
-	    						$choosen_value = $choosen_value[0];
-	    						if($debug_me) {print('TOSTR:');}
-	    					}
-	    				}
-	    			}*/
 	    			if($debug_me) {print($choosen_value);}
 	    			return $this->single_value_to_string($choosen_value);
 	    		} else {
