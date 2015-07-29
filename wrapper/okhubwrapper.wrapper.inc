@@ -30,6 +30,12 @@ class OkhubApiWrapper {
 
   // Current request object.
   private $request;
+  
+  // Sources full data.
+  private $sources_data;
+  
+  // Sources simple array code=>name
+  private $sources_options;
 
   /**
   * Constructor
@@ -565,48 +571,46 @@ class OkhubApiWrapper {
 	 * Get array of all sources in the form key=source code, value=source name
 	 */
 	public function okhubapi_get_sources_options($api_key){
-	    $sources_data = $this->okhubapi_get_full_source_data($api_key);
-	    static $sources_options = false;
-	    if(!$sources_options){
-		    $sources_options = array();
-		    if($sources_data){
-			    foreach($sources_data as $source){
+	    $this->okhubapi_get_full_sources_data($api_key);
+	    if(!$this->sources_options){
+		    $this->sources_options = array();
+		    if($this->sources_data){
+			    foreach($this->sources_data as $source){
 			    	unset($source->hub_data['']);
 			    	$is_semantic = FALSE;
 		    		if($source->get_value('is_semantic')){
 		    			$is_semantic = TRUE;
 		    		}
 			    	if($source->get_value(OKHUB_API_FN_SOURCE_CODE) && $source->get_value(OKHUB_API_FN_NAME) && !$is_semantic){
-			    		$sources_options[$source->get_value(OKHUB_API_FN_SOURCE_CODE)] = $source->get_value(OKHUB_API_FN_NAME);
+			    		$this->sources_options[$source->get_value(OKHUB_API_FN_SOURCE_CODE)] = $source->get_value(OKHUB_API_FN_NAME);
 			    	}
 			    }
 		    }
+		    asort($this->sources_options);
 	    }
-	    asort($sources_options);
-	 	return $sources_options;
+	 	return $this->sources_options;
 	}
 	
 	/*
 	 * function to get full source data from api and store in static (as not often to change)
 	 */
-	public function okhubapi_get_full_source_data($api_key){
-		static $sources_data = false;
-		if(!$sources_data){
+	public function okhubapi_get_full_sources_data($api_key){
+		if(!$this->sources_data){
   			$sources_response = $this->getAll('sources', OKHUB_API_DEFAULT_DATASET, $api_key, 'full');
 			if(isset($sources_response->results)){
-				$sources_data = $sources_response->results;
+				$this->sources_data = $sources_response->results;
 			}
 		}
-		return $sources_data;
+		return $this->sources_data;
 	}
 	
 	/*
 	 * function to get source name from id 
 	 */
 	public function okhubapi_get_source_name_from_id($source_id, $api_key){
-	    $sources_options = $this->okhubapi_get_sources_options($api_key);
-		if(isset($sources_options[$source_id])){
-			return $sources_options[$source_id];
+	  	$this->okhubapi_get_sources_options($api_key);
+		if(isset($this->sources_options[$source_id])){
+			return $this->sources_options[$source_id];
 		}
 		return false;
 	}
