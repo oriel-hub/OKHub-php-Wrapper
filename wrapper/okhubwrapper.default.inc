@@ -36,6 +36,8 @@ define('OKHUB_API_KEY_PAR', '_token_guid');
 define('OKHUB_API_CSS_OBJECT', 'okhub-object');
 define('OKHUB_API_PREFIX', 'OKHUB');
 
+define('OKHUB_API_ISO_CODE_DATA_URL', 'http://www.oorsprong.org/websamples.countryinfo/CountryInfoService.wso/ListOfCountryNamesByCode/JSON');
+
 //Field name constants (whilst API is still in flux)
 define('OKHUB_API_FN_TITLE', 'title');
 define('OKHUB_API_FN_ITEM_ID', 'hub_item_id');
@@ -58,6 +60,9 @@ define('OKHUB_API_FN_DATE_CREATED', 'date_created');
 define('OKHUB_API_FN_DATE_UPDATED', 'date_updated');
 define('OKHUB_API_FN_SITE', 'hub');
 define('OKHUB_API_FN_ARCHIVED', 'archived');
+
+
+
 
 
 

@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * Iso country data
+ */
+
+/*
+ * country data obtained from http://www.oorsprong.org/websamples.countryinfo/CountryInfoService.wso/ListOfCountryNamesByCode/JSON
+ * must be way of getting this direct from the service, but unless I put in this static array it broke?
+ */
+global $okhub_wrapper_iso_country_data;
+$okhub_wrapper_iso_country_data = array('AD'=> 'Andorra', 'AE'=> 'United Arab Emirates', 'AF'=> 'Afghanistan', 'AG'=> 'Antigua & Barbuda', 'AI'=> 'Anguilla', 'AL'=> 'Albania', 'AM'=> 'Armenia', 'AN'=> 'Netherlands Antilles', 'AO'=> 'Angola', 'AQ'=> 'Antarctica', 'AR'=> 'Argentina', 'AS'=> 'American Samoa', 'AT'=> 'Austria', 'AU'=> 'Australia', 'AW'=> 'Aruba', 'AX'=> 'Åland Islands', 'AZ'=> 'Azerbaijan', 'BA'=> 'Bosnia & Herzegovina', 'BB'=> 'Barbados', 'BD'=> 'Bangladesh', 'BE'=> 'Belgium', 'BF'=> 'Burkina Faso', 'BG'=> 'Bulgaria', 'BH'=> 'Bahrain', 'BI'=> 'Burundi', 'BJ'=> 'Benin', 'BM'=> 'Bermuda', 'BN'=> 'Brunei-Darussalam', 'BO'=> 'Bolivia', 'BR'=> 'Brazil', 'BS'=> 'Bahamas', 'BT'=> 'Bhutan', 'BV'=> 'Bouvet Island', 'BW'=> 'Botswana', 'BY'=> 'Belarus', 'BZ'=> 'Belize', 'CA'=> 'Canada', 'CC'=> 'Cocos (Keeling) Islands', 'CD'=> 'Congo, Democratic Republic', 'CF'=> 'Central African Republic', 'CG'=> 'Congo', 'CH'=> 'Switzerland', 'CI'=> 'Côte D\'Ivoire (Ivory Coast)', 'CK'=> 'Cook Islands', 'CL'=> 'Chile', 'CM'=> 'Cameroon', 'CN'=> 'China', 'CO'=> 'Colombia', 'CR'=> 'Costa Rica', 'CS'=> 'Serbia & Montenegro', 'CU'=> 'Cuba', 'CV'=> 'Cape Verde', 'CX'=> 'Chrismas Island', 'CY'=> 'Cyprus', 'CZ'=> 'Czech Republic', 'DE'=> 'Germany', 'DJ'=> 'Djibouti', 'DK'=> 'Denmark', 'DM'=> 'Dominica', 'DO'=> 'Dominican Republic', 'DZ'=> 'Algeria', 'EC'=> 'Ecuador', 'EE'=> 'Estonia', 'EG'=> 'Egypt', 'EH'=> 'Western Sahara', 'ER'=> 'Eritrea', 'ES'=> 'Spain', 'ET'=> 'Ethiopia', 'FI'=> 'Finland', 'FJ'=> 'Fiji', 'FK'=> 'Falkand Islands (Malvinas)', 'FM'=> 'Micronesia (Federa States of)', 'FO'=> 'Faroe Islands', 'FR'=> 'France', 'GA'=> 'Gabon', 'GB'=> 'United Kingdom', 'GD'=> 'Grenada', 'GE'=> 'Georgia', 'GF'=> 'French Guiana', 'GH'=> 'Ghana', 'GI'=> 'Gibraltar', 'GL'=> 'Greenland', 'GM'=> 'Gambia', 'GN'=> 'Guinea', 'GP'=> 'Guadeloupe', 'GQ'=> 'Equatorial Guinea', 'GR'=> 'Greece', 'GS'=> 'South Georgia & South Sandwich Islands', 'GT'=> 'Guatemala', 'GU'=> 'Guam', 'GW'=> 'Guinea-Bissau', 'GY'=> 'Guyana', 'HK'=> 'Hong Kong', 'HM'=> 'Heard Island And McDonald Islands', 'HN'=> 'Honduras', 'HR'=> 'Croatia', 'HT'=> 'Haiti', 'HU'=> 'Hungary', 'ID'=> 'Indonesia', 'IE'=> 'Ireland', 'IL'=> 'Israel', 'IN'=> 'India', 'IO'=> 'British Indian Ocean Territory', 'IQ'=> 'Iraq', 'IR'=> 'Iran', 'IS'=> 'Iceland', 'IT'=> 'Italy', 'JM'=> 'Jamaica', 'JO'=> 'Jordan', 'JP'=> 'Japan', 'KE'=> 'Kenya', 'KG'=> 'Kyrgyzstan', 'KH'=> 'Cambodia', 'KI'=> 'Kiribati', 'KM'=> 'Comoros', 'KN'=> 'St. Kitts & Nevis', 'KP'=> 'North Korea', 'KR'=> 'South Korea', 'KW'=> 'Kuwait', 'KY'=> 'Cayman Islands', 'KZ'=> 'Kazakhstan', 'LA'=> 'Laos', 'LB'=> 'Lebanon', 'LC'=> 'St. Lucia', 'LI'=> 'Liechtenstein', 'LK'=> 'Sri Lanka', 'LR'=> 'Liberia', 'LS'=> 'Lesotho', 'LT'=> 'Lithuania', 'LU'=> 'Luxembourg', 'LV'=> 'Latvia', 'LY'=> 'Libyan Arab Jamahiriya', 'MA'=> 'Morocco', 'MC'=> 'Monaco', 'MD'=> 'Moldova, Republic of', 'MG'=> 'Madagascar', 'MH'=> 'Marshall Islands', 'MK'=> 'Macedonia (former YR)', 'ML'=> 'Mali', 'MM'=> 'Myanmar (Burma)', 'MN'=> 'Mongolia', 'MO'=> 'Macao', 'MP'=> 'Northern Mariana Islands', 'MQ'=> 'Martinique', 'MR'=> 'Mauritania', 'MS'=> 'Montserrat', 'MT'=> 'Malta', 'MU'=> 'Mauritius', 'MV'=> 'Maldives (Maladive Ilands)', 'MW'=> 'Malawi', 'MX'=> 'Mexico', 'MY'=> 'Malaysia', 'MZ'=> 'Mozambique', 'NA'=> 'Namibia', 'NC'=> 'New Caledonia', 'NE'=> 'Niger', 'NF'=> 'Norfolk Island', 'NG'=> 'Nigeria', 'NI'=> 'Nicaragua', 'NL'=> 'Netherlands', 'NO'=> 'Norway', 'NP'=> 'Nepal', 'NR'=> 'Nauru', 'NU'=> 'Niue', 'NZ'=> 'New Zealand', 'OM'=> 'Oman', 'PA'=> 'Panama', 'PE'=> 'Peru', 'PF'=> 'French Polynesia', 'PG'=> 'Papua-New Guinea', 'PH'=> 'Philippines', 'PK'=> 'Pakistan', 'PL'=> 'Poland', 'PM'=> 'Saint Pierre And Micquelon', 'PN'=> 'Pitcairn', 'PR'=> 'Puerto Rico', 'PS'=> 'Palestinian Territory, Occupied', 'PT'=> 'Portugal', 'PW'=> 'Palau', 'PY'=> 'Paraguay', 'QA'=> 'Quatar', 'RE'=> 'Reunion', 'RO'=> 'Romania', 'RU'=> 'Russian Federation', 'RW'=> 'Rwanda', 'SA'=> 'Saudi Arabia', 'SB'=> 'Solomon Islands', 'SC'=> 'Seychelles', 'SD'=> 'Sudan', 'SE'=> 'Sweden', 'SG'=> 'Singapore', 'SH'=> 'Saint Helena', 'SI'=> 'Slovenia', 'SJ'=> 'Svalbard And Jan Mayen', 'SK'=> 'Slovakia', 'SL'=> 'Sierra Leone', 'SM'=> 'San Marino', 'SN'=> 'Senegal', 'SO'=> 'Somalia', 'SR'=> 'Suriname', 'ST'=> 'Sao Tome & Principe', 'SV'=> 'El Salvador', 'SY'=> 'Syrian Arab Republic', 'SZ'=> 'Swaziland', 'TC'=> 'Turks And Caicos Islands', 'TD'=> 'Chad', 'TF'=> 'French Southern Territories', 'TG'=> 'Togo', 'TH'=> 'Thailand', 'TJ'=> 'Tajikistan', 'TK'=> 'Tokelau', 'TL'=> 'Timor-Leste', 'TM'=> 'Turkmenistan', 'TN'=> 'Tunisia', 'TO'=> 'Tonga', 'TR'=> 'Turkey', 'TT'=> 'Trinidad & Tobago', 'TV'=> 'Tuvalu', 'TW'=> 'Taiwan', 'TZ'=> 'Tanzania', 'UA'=> 'Ukraine', 'UG'=> 'Uganda', 'UM'=> 'United States Minor Outlying Islands', 'US'=> 'United States', 'UY'=> 'Uruguay', 'UZ'=> 'Uzbekistan', 'VA'=> 'Vatican City', 'VC'=> 'St. Vincent & Grenadines', 'VE'=> 'Venezuela', 'VG'=> 'Virgin Islands, British', 'VI'=> 'Virgin Islands, U.S.', 'VN'=> 'Vietnam', 'VU'=> 'Vanuatu', 'WF'=> 'Wallis And Futuna', 'WS'=> 'Western Samoa', 'YE'=> 'Yemen', 'YT'=> 'Mayotte', 'ZA'=> 'South Africa', 'ZM'=> 'Zambia', 'ZW'=> 'Zimbabwe');
+
 /**
  * OkhubApiObject class.
  *
@@ -83,13 +94,12 @@ class OkhubApiObject {
   }
   
   public function get_value($field_name, $source_id = FALSE, $language_id = FALSE){
-   
     /*
      * Get the value for this field/attribute selects from the priority source/language
      * if available or a fallback if not
      */
   	$exceptions_array = array('sources');
-  	
+  	global $okhub_wrapper_iso_country_data;
   	$debug_me = FALSE;
   	if($debug_me) { print('GETVALUE:'.$field_name.':'); }
   	$value_obj = $this->get_value_object($field_name);
@@ -143,21 +153,23 @@ class OkhubApiObject {
     		if($choosen_obj){
 	    		$choosen_value = FALSE;
 	    		$fallback_value = FALSE;
-	    		$fallback_key = 0;
+	    		$fallback_lang_key = FALSE;
 	    	   	if(is_array($choosen_obj)){
 		    		foreach($choosen_obj as $lang => $value){
-		    			if($lang === $language_id){
+		    			if(strtolower($lang) === $language_id){
 		    				if($debug_me) { print('langfound:');}
 		    				$choosen_value = $value;
 		    			}
 		    			$fallback_value = $value;
-		    			$fallback_key = $lang;
+		    			if(array_key_exists(strtoupper($lang), $okhub_wrapper_iso_country_data)){
+		    				$fallback_lang_key = $lang;
+		    			}
 		    		}
 	    	   	}
-    		   	/* If not use a fallback lang -- unless the key is numeric then assume doesn't have language depth */
-	    	/*	if(!$choosen_value && !is_numeric($fallback_key)){
+    		   	/* If not use a fallback lang -- unless the key is not a valid lang -- then it must be other type of data */
+	    		if(!$choosen_value && $fallback_lang_key){
 	    			$choosen_value = $fallback_value;
-	    		}*/
+	    		}
 	    		if($choosen_value){
 	    			if($debug_me) { print('GOTIT:'); }
 	    			/* 
@@ -194,6 +206,9 @@ class OkhubApiObject {
     }   
     return FALSE;	
   }
+  
+  
+  
 
 }
 
