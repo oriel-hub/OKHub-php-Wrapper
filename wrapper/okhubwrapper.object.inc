@@ -76,6 +76,9 @@ class OkhubApiObject {
   }
   
   public function get_value_object($field_name){
+  	/*
+  	 * Returns the raw data from any attribute in the API
+  	 */
     if (isset($this->hub_data[$field_name])){
     	return $this->hub_data[$field_name];
     }  
@@ -95,8 +98,8 @@ class OkhubApiObject {
   
   public function get_value($field_name, $source_id = FALSE, $language_id = FALSE){
     /*
-     * Get the value for this field/attribute selects from the priority source/language
-     * Attempts to get the varible/arry that is contained in the standard [source][language] structure
+     * Get a meaningful value for this API attribute using the priority source/language if supplied
+     * Attempts to get the varible/array that is contained in the standard [source][language] structure
      * if available or a returns what it finds if that structure is not there and/or uses aternatives
      * if priority source or language not found (i.e. it tries to return something of value!)
      */
