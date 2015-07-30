@@ -65,6 +65,8 @@ define('OKHUB_API_FN_DATE_UPDATED', 'date_updated');
 define('OKHUB_API_FN_SITE', 'hub');
 define('OKHUB_API_FN_ARCHIVED', 'archived');
 
+define('OKHUB_API_FN_THEME_DATA', 'theme_array');
+define('OKHUB_API_FN_SUBJECT_DATA', 'subject_array');
 
 /* 
  * Old Eldis/Bridge attibutes that need Hub attribute equivilants 
@@ -73,8 +75,6 @@ define('OKHUB_API_FN_ARCHIVED', 'archived');
  * will need to be updated. 
  * Use attributes below with caution and there are more prone to change structure as well as name    
  * */
-define('OKHUB_API_FN_THEME_DATA', 'category_theme_array');
-define('OKHUB_API_FN_SUBJECT_DATA', 'category_subject_array');
 define('OKHUB_API_FN_REGION_DATA', 'category_region_array');
 define('OKHUB_API_FN_COUNTRY_DATA', 'country_focus_array');
 
