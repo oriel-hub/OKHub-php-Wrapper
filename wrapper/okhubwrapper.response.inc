@@ -133,7 +133,7 @@ class OkhubApiResponse {
 			if (!$object->get_value(OKHUB_API_FN_ARCHIVED, $source_id, $language_id)) {
 				$title = $object->get_value(OKHUB_API_FN_TITLE, $source_id, $language_id);
 				if ($padding_str) {
-					$level = get_value('leve', $source_id, $language_id);
+					$level = get_value('level', $source_id, $language_id);
 					if($level){
 						$padding = strlen($title) + strlen($padding_str)*($level - 1);
 						$title = str_pad($title, $padding, $padding_str, STR_PAD_LEFT);
