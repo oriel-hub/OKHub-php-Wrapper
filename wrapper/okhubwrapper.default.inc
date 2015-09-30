@@ -44,7 +44,7 @@ define('OKHUB_API_ISO_CODE_DATA_URL', 'http://www.oorsprong.org/websamples.count
 
 /* Hub Attributes from API */
 define('OKHUB_API_FN_TITLE', 'title');
-define('OKHUB_API_FN_ITEM_ID', 'hub_item_id');
+define('OKHUB_API_FN_ITEM_ID', 'item_id');/* Joe seems to have changed from hub_item_id */
 define('OKHUB_API_FN_ITEM_TYPE', 'hub_item_type');
 define('OKHUB_API_FN_DOCUMENT_TYPE', 'hub_document_type');
 define('OKHUB_API_FN_METADATA_LANGAUAGES', 'metadata_languages');
