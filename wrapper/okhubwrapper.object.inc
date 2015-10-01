@@ -96,7 +96,14 @@ class OkhubApiObject {
   	return $arr;
   }
   
-  public function get_value($field_name, $source_id = FALSE, $language_id = FALSE){
+  public function get_value_ss($field_name, $source_id = FALSE, $language_id = FALSE){
+    /*
+     * Get a source specific value or return false
+     */
+  	return $this->get_value($field_name, $source_id, $language_id, TRUE);
+  }
+  
+  public function get_value($field_name, $source_id = FALSE, $language_id = FALSE, $ss = FALSE){
     /*
      * Get a meaningful value for this API attribute using the priority source/language if supplied
      * Attempts to get the varible/array that is contained in the standard [source][language] structure
@@ -129,13 +136,13 @@ class OkhubApiObject {
 
     		$choosen_obj = FALSE;
     		$fallback_obj = FALSE;
-    	    /* See if there is a okhub value */
-    		if(isset($value_obj['okhub'])){
+    	    /* See if there is a okhub value and NOT source specific*/
+    		if(isset($value_obj['okhub']) && !$ss){
     			$choosen_obj = $value_obj['okhub'];
     			if($debug_me) { print('hubfound:');}
     		}
-    		/* See if there is a hub value -- NOTE this will be superceeded by okhub */
-    		elseif(isset($value_obj['hub'])){
+    		/* See if there is a hub value and NOT source specific -- NOTE this will be superceeded by okhub */
+    		elseif(isset($value_obj['hub']) && !$ss){
     			$choosen_obj = $value_obj['hub'];
     			if($debug_me) { print('hubfound:');}
     		} else {
@@ -148,8 +155,8 @@ class OkhubApiObject {
 	    			}
 	    			$fallback_obj = $lang_obj;
 	    		}
-	    		/* If not use a fallback */
-	    		if(!$choosen_obj){
+	    		/* If not use a fallback if NOT source specific */
+	    		if(!$choosen_obj && !$ss){
 	    			$choosen_obj = $fallback_obj;
 	    		}
 	    		if($debug_me) { print_r($choosen_obj);}
@@ -191,12 +198,16 @@ class OkhubApiObject {
 	    			return $this->single_value_to_string($choosen_obj);
 	    		}
     		} else {
-    			if($debug_me) {print_r($value_obj);}
-    			return $this->single_value_to_string($value_obj);
+    			if(!$ss){
+    				if($debug_me) {print_r($value_obj);}
+    				return $this->single_value_to_string($value_obj);
+    			}
     		}
     	} else {
-    		if($debug_me) {print_r($value_obj);}
-    		return $this->single_value_to_string($value_obj);
+    		if(!$ss){
+	    		if($debug_me) {print_r($value_obj);}
+	    		return $this->single_value_to_string($value_obj);
+    		}
     	}
     }   
     return FALSE;	

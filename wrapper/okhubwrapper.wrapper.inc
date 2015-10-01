@@ -332,7 +332,7 @@ class OkhubApiWrapper {
     /**/
     if ($data = $this->cacheGet()) {
       $cached = TRUE;
-      list($results, $total_results) = $data;
+      list($results, $total_results, $next_page, $prev_page) = $data;
     }
     else {/**/
       if ($this->request->getTypeRequest() == 'count') {
@@ -340,15 +340,15 @@ class OkhubApiWrapper {
         $object_type = $this->request->getCountCategory() . '_count';
       }
       else {
-        list($results, $total_results) = $this->getDecodedResults($this->getUrl(), 0);
+        list($results, $total_results, $next_page, $prev_page) = $this->getDecodedResults($this->getUrl(), 0);
       }
-      $this->cacheSet(array($results, $total_results));
+      $this->cacheSet(array($results, $total_results, $next_page, $prev_page));
     }
     $priorities = array(
     	'priority_datasource' => $this->request->getPriorityDatasource(),
     	'priority_language' => $this->request->getPriorityLanguage()
     );
-    $response = new OkhubApiResponse($results, $object_type, $total_results, $this->request->getSite(), $cached, $priorities);
+    $response = new OkhubApiResponse($results, $object_type, $total_results, $this->request->getSite(), $cached, $priorities, $next_page, $prev_page);
     return $response;
   }
 
@@ -385,8 +385,7 @@ class OkhubApiWrapper {
       $results = $data;
       $total_results = 0;
     }
-    //return array($results, $total_results,$next_page,$prev_page);
-    return array($results, $total_results);
+    return array($results, $total_results, $next_page, $prev_page);
   }
 
   /**
@@ -427,8 +426,8 @@ class OkhubApiWrapper {
       $results = $data;
       $total_results = 0;
     }
-    //return array($results, $total_results, $next_page,$prev_page);
-     return array($results, $total_results);
+    return array($results, $total_results, $next_page,$prev_page);
+     //return array($results, $total_results);
   }
 
   /**

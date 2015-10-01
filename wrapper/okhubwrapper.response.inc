@@ -6,6 +6,8 @@
 * Objects of this class contain the data retrieved by the Okhub API calls.
 *
 */
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 class OkhubApiResponse {
 
@@ -41,10 +43,10 @@ class OkhubApiResponse {
   * @param array $priorities - array with attributes 'priority_datasource' and 'priority_language'.
   */
   //function __construct($results, $format, $type_results, $total_results, $default_site, $cached = FALSE) {
-  function __construct($results, $type_results, $total_results, $default_site, $cached = FALSE, $priorities = FALSE) {
-    $this->results = array();
-    //$this->next_page=$next_page;
-    //$this->prev_page=$prev_page;
+  function __construct($results, $type_results, $total_results, $default_site, $cached = FALSE, $priorities = FALSE, $next_page = FALSE, $prev_page = FALSE) {
+  	$this->results = array();
+    $this->next_page=$next_page;
+    $this->prev_page=$prev_page;
     if (!is_array($results)) {
       $this->is_error = TRUE;
       if (is_string($results)) {
@@ -133,7 +135,7 @@ class OkhubApiResponse {
      
 	//if ((!isset($object->archived)) || ($object->archived !== 'true')) {
 		$title="";
-		$title = $object->get_value(OKHUB_API_FN_TITLE, $source_id, $language_id);
+		$title = $object->get_value(OKHUB_API_FN_TITLE);
 		if ($padding_str) {
 			if (isset($object->level)) {
 				$level = $object->level;
@@ -143,7 +145,7 @@ class OkhubApiResponse {
 		}
 
 		if ($title !== ""){
-			$hub_item_id = $object->get_value(OKHUB_API_FN_ITEM_ID, $source_id, $language_id);
+			$hub_item_id = $object->get_value(OKHUB_API_FN_ITEM_ID);
 			$array_objects['results'][$hub_item_id]['title'] = $title;
 		}
 	//}
@@ -188,7 +190,7 @@ class OkhubApiResponse {
 					$blog_entries[$s][$hub_item_id]['title'] = $object->get_value(OKHUB_API_FN_TITLE, $s);
 					$blog_entries[$s][$hub_item_id]['description'] = $object->get_value(OKHUB_API_FN_DESCRIPTION, $s);
 					$blog_entries[$s][$hub_item_id]['url'] = $object->get_value(OKHUB_API_FN_URLS, $s);
-					$blog_entries[$s][$hub_item_id]['authors'] = $object->get_value('authors', $s);
+					$blog_entries[$s][$hub_item_id]['authors'] = $object->get_value('author', $s);
 					$blog_entries[$s][$hub_item_id]['publisher_country'] = $object->get_value('publisher_country', $s);
 					$blog_entries[$s][$hub_item_id]['publisher'] = $object->get_value('publisher', $s);
 					$blog_entries[$s][$hub_item_id]['publication_year'] = $object->get_value('publication_year', $s);
@@ -202,7 +204,7 @@ class OkhubApiResponse {
 					$blog_entries[$source][$hub_item_id]['title'] = $object->get_value(OKHUB_API_FN_TITLE, $source);
 					$blog_entries[$source][$hub_item_id]['description'] = $object->get_value(OKHUB_API_FN_DESCRIPTION, $source);
 					$blog_entries[$source][$hub_item_id]['url'] = $object->get_value(OKHUB_API_FN_URLS, $source);
-					$blog_entries[$source][$hub_item_id]['authors'] = $object->get_value('authors', $source);
+					$blog_entries[$source][$hub_item_id]['authors'] = $object->get_value('author', $source);
 					$blog_entries[$source][$hub_item_id]['publisher_country'] = $object->get_value('publisher_country', $source);
 					$blog_entries[$source][$hub_item_id]['publisher'] = $object->get_value('publisher', $source);
 					$blog_entries[$source][$hub_item_id]['publication_year'] = $object->get_value('publication_year', $source);
@@ -212,12 +214,12 @@ class OkhubApiResponse {
 			}
 		}
   	}
-  	/*if ($this->next_page !== 0){
+  	if ($this->next_page !== 0){
   		$blog_entries['metadata']['next_page']=$this->next_page;
   	}
   	if ($this->prev_page !== 0){
   		$blog_entries['metadata']['prev_page']=$this->prev_page;
-  	}*/
+  	}
   	$blog_entries['metadata']['total_results'] = $this->total_results;
   	return $blog_entries;  
   }
@@ -226,47 +228,48 @@ class OkhubApiResponse {
   	foreach($this->results as $i=>$object){
   		if (is_array($source)){
   			foreach($source as $s){
-  				$hub_item_id = $object->get_value(OKHUB_API_FN_ITEM_ID, $s);
-  				if ($hub_item_id){
+  				$hub_item_id = $object->get_value(OKHUB_API_FN_ITEM_ID);
+  				$hub_item_ss_title = $object->get_value_ss(OKHUB_API_FN_TITLE, $s);
+  				if ($hub_item_ss_title){
   				//if (!empty($object->titles[$s])){
-  					$blog_entries['results'][$hub_item_id]['object_id'] = $hub_item_id;
-					$blog_entries['results'][$hub_item_id]['hub_timestamp'] = $object->get_value(OKHUB_API_FN_TIMESTAMP, $s);
-					$blog_entries['results'][$hub_item_id]['hub_sources'] = $object->get_value(OKHUB_API_FN_SOURCES, $s);
-					$blog_entries['results'][$hub_item_id][$s]['title'] = $object->get_value(OKHUB_API_FN_TITLE, $s);
+  					$blog_entries['results'][$hub_item_id][$s]['object_id'] = $hub_item_id;
+					$blog_entries['results'][$hub_item_id][$s]['hub_timestamp'] = $object->get_value('timestamp');
+					$blog_entries['results'][$hub_item_id][$s]['hub_sources'] = $object->get_value_object(OKHUB_API_FN_SOURCES);
+					$blog_entries['results'][$hub_item_id][$s]['title'] = $hub_item_ss_title;
 
-					$blog_entries['results'][$hub_item_id][$s]['document_medium'] = $object->get_value('document_medium', $s);
-					$blog_entries['results'][$hub_item_id][$s]['description'] = $object->get_value(OKHUB_API_FN_DESCRIPTION, $s);
-					$blog_entries['results'][$hub_item_id][$s]['url'] = $object->get_value(OKHUB_API_FN_URLS, $s);
-					$blog_entries['results'][$hub_item_id][$s]['authors'] = $object->get_value('authors', $s);
-					$blog_entries['results'][$hub_item_id][$s]['publisher_country'] = $object->get_value(OKHUB_API_FN_TITLE, $s);
-					$blog_entries['results'][$hub_item_id][$s]['publisher'] = $object->get_value('publisher_country', $s);
-					$blog_entries['results'][$hub_item_id][$s]['publication_year'] = $object->get_value('publication_year', $s);
-					$blog_entries['results'][$hub_item_id][$s]['metadata_url'] = $object->get_value(OKHUB_API_FN_METADATA_URL, $s);
-					$blog_entries['results'][$hub_item_id][$s]['hub_themes_inline'] = implode(",",$object->get_value(OKHUB_API_FN_THEME_DATA, $s));
-					$blog_entries['results'][$hub_item_id][$s]['hub_themes'] = $object->get_value(OKHUB_API_FN_THEME_DATA, $s);
+					$blog_entries['results'][$hub_item_id][$s]['document_medium'] = $object->get_value_ss('document_medium', $s);
+					$blog_entries['results'][$hub_item_id][$s]['description'] = $object->get_value_ss(OKHUB_API_FN_DESCRIPTION, $s);
+					$blog_entries['results'][$hub_item_id][$s]['url'] = $object->get_value_ss(OKHUB_API_FN_URLS, $s);
+					$blog_entries['results'][$hub_item_id][$s]['authors'] = $object->get_value_ss('author', $s);
+					$blog_entries['results'][$hub_item_id][$s]['publisher_country'] = $object->get_value_ss('publisher_country', $s);
+					$blog_entries['results'][$hub_item_id][$s]['publisher'] = $object->get_value_ss('publisher', $s);
+					$blog_entries['results'][$hub_item_id][$s]['publication_year'] = $object->get_value_ss('publication_year', $s);
+					$blog_entries['results'][$hub_item_id][$s]['metadata_url'] = $object->get_value_ss(OKHUB_API_FN_METADATA_URL, $s);
+					$blog_entries['results'][$hub_item_id][$s]['hub_themes_inline'] = ($object->get_value_ss(OKHUB_API_FN_THEME_DATA)) ? implode(",",$object->get_value_ss(OKHUB_API_FN_THEME_DATA, $s)):'';
+					$blog_entries['results'][$hub_item_id][$s]['hub_themes'] = $object->get_value_ss(OKHUB_API_FN_THEME_DATA, $s);
 					//$blog_entries['results'][$hub_item_id][$s]['hub_country'] = $object->hub_country;
-					$blog_entries['results'][$hub_item_id][$s]['date_created'] = $object->get_value(OKHUB_API_FN_DATE_CREATED, $s);
-					$blog_entries['results'][$hub_item_id][$s]['date_updated'] = $object->get_value(OKHUB_API_FN_DATE_UPDATED, $s);
+					$blog_entries['results'][$hub_item_id][$s]['date_created'] = $object->get_value_ss(OKHUB_API_FN_DATE_CREATED, $s);
+					$blog_entries['results'][$hub_item_id][$s]['date_updated'] = $object->get_value_ss(OKHUB_API_FN_DATE_UPDATED, $s);
 					//$blog_entries['results'][$hub_item_id][$s]['country_focus'] = implode(",",$object->country_focus[$s]);
-					$blog_entries['results'][$hub_item_id][$s]['hub_country'] = $object->get_value(OKHUB_API_FN_TITLE, $s);
-					$blog_entries['results'][$hub_item_id][$s]['country_focus'] = $object->get_value(OKHUB_API_FN_TITLE, $s);
-					$blog_entries['results'][$hub_item_id][$s]['hub_region'] = $object->get_value(OKHUB_API_FN_TITLE, $s);
-					$blog_entries['results'][$hub_item_id][$s]['category_theme_array'] = $object->get_value(OKHUB_API_FN_THEME_DATA, $s);
-					$blog_entries['results'][$hub_item_id][$s]['category_subject_array'] = $object->get_value(OKHUB_API_FN_SUBJECT_DATA, $s);
-					$blog_entries['results'][$hub_item_id][$s]['category_region_array'] = $object->get_value(OKHUB_API_FN_REGION_DATA, $s);
-					$blog_entries['results'][$hub_item_id][$s]['country_focus_array'] = $object->get_value(OKHUB_API_FN_COUNTRY_DATA, $s);				
+					$blog_entries['results'][$hub_item_id][$s]['hub_country'] = $object->get_value_ss('hub_country', $s);
+					$blog_entries['results'][$hub_item_id][$s]['country_focus'] = $object->get_value_ss('country_focus', $s);
+					$blog_entries['results'][$hub_item_id][$s]['hub_region'] = $object->get_value_ss('hub_region', $s);
+					$blog_entries['results'][$hub_item_id][$s]['category_theme_array'] = $object->get_value_ss(OKHUB_API_FN_THEME_DATA, $s);
+					$blog_entries['results'][$hub_item_id][$s]['category_subject_array'] = $object->get_value_ss(OKHUB_API_FN_SUBJECT_DATA, $s);
+					$blog_entries['results'][$hub_item_id][$s]['category_region_array'] = $object->get_value_ss(OKHUB_API_FN_REGION_DATA, $s);
+					$blog_entries['results'][$hub_item_id][$s]['country_focus_array'] = $object->get_value_ss(OKHUB_API_FN_COUNTRY_DATA, $s);				
 				}else{
 					//echo $s;	
 				}
   			}			
   		}
   	}
-  	/*if ($this->next_page !== 0){
+  	if ($this->next_page !== 0){
   		$blog_entries['metadata']['next_page']=$this->next_page;
   	}
   	if ($this->prev_page !== 0){
   		$blog_entries['metadata']['prev_page']=$this->prev_page;
-  	}*/
+  	}
   	$blog_entries['metadata']['total_results'] = $this->total_results;
   	return $blog_entries;  
   }
