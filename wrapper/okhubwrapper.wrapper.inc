@@ -336,7 +336,7 @@ class OkhubApiWrapper {
     }
     else {/**/
       if ($this->request->getTypeRequest() == 'count') {
-        list($results, $total_results) = $this->getDecodedCountResults($this->getUrl());
+        list($results, $total_results, $next_page, $prev_page) = $this->getDecodedCountResults($this->getUrl());
         $object_type = $this->request->getCountCategory() . '_count';
       }
       else {
