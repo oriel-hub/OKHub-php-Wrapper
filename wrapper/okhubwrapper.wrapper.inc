@@ -36,6 +36,9 @@ class OkhubApiWrapper {
   
   // Sources simple array code=>name
   private $sources_options;
+  
+  // Sources data with full objects 
+  private $sources_options_objects;
 
   /**
   * Constructor
@@ -569,9 +572,9 @@ class OkhubApiWrapper {
 	/**
 	 * Get array of all sources in the form key=source code, value=source name
 	 */
-	public function okhubapi_get_sources_options($api_key){
+	public function okhubapi_get_sources_options($api_key, $full_data = FALSE){
 	    $this->okhubapi_get_full_sources_data($api_key);
-	    if(!$this->sources_options){
+	    if(!$this->sources_options || $full_data){
 		    $this->sources_options = array();
 		    if($this->sources_data){
 			    foreach($this->sources_data as $source){
@@ -581,13 +584,23 @@ class OkhubApiWrapper {
 		    			$is_semantic = TRUE;
 		    		}
 			    	if($source->get_value(OKHUB_API_FN_SOURCE_CODE) && $source->get_value(OKHUB_API_FN_NAME) && !$is_semantic){
-			    		$this->sources_options[$source->get_value(OKHUB_API_FN_SOURCE_CODE)] = $source->get_value(OKHUB_API_FN_NAME);
+			    		$this->sources_options[$source->get_value(OKHUB_API_FN_SOURCE_CODE)] = ($full_data) ? $source:$source->get_value(OKHUB_API_FN_NAME);
 			    	}
 			    }
 		    }
 		    asort($this->sources_options);
 	    }
 	 	return $this->sources_options;
+	}
+	
+	/**
+	 * Get array of all sources in the form key=source code, value=source object
+	 */
+	public function okhubapi_get_sources_options_objects($api_key){
+		if(!$this->sources_options_objects){
+		   $this->sources_options_objects = $this->okhubapi_get_sources_options($api_key, TRUE);
+	    }
+	 	return $this->sources_options_objects;
 	}
 	
 	/*

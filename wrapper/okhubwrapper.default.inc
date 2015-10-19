@@ -78,6 +78,9 @@ define('OKHUB_API_FN_SUBJECT_DATA', 'subject_array');
 define('OKHUB_API_FN_REGION_DATA', 'category_region_array');
 define('OKHUB_API_FN_COUNTRY_DATA', 'country_focus_array');
 
+/* LOGO array default positions */
+define('OKHUB_API_LOGO_ARR_POS_URL', 3);
+
 
 
 
