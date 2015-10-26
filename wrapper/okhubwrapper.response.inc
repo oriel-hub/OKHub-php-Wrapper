@@ -245,7 +245,7 @@ class OkhubApiResponse {
 					$blog_entries['results'][$hub_item_id][$s]['publisher'] = $object->get_value_ss('publisher', $s);
 					$blog_entries['results'][$hub_item_id][$s]['publication_year'] = $object->get_value_ss('publication_year', $s);
 					$blog_entries['results'][$hub_item_id][$s]['metadata_url'] = $object->get_value_ss(OKHUB_API_FN_METADATA_URL, $s);
-					$blog_entries['results'][$hub_item_id][$s]['hub_themes_inline'] = ($object->get_value_ss(OKHUB_API_FN_THEME_DATA)) ? implode(",",$object->get_value_ss(OKHUB_API_FN_THEME_DATA, $s)):'';
+					$blog_entries['results'][$hub_item_id][$s]['hub_themes_inline'] = (is_array($object->get_value_ss(OKHUB_API_FN_THEME, $s))) ? implode(",",$object->get_value_ss(OKHUB_API_FN_THEME, $s)):'';
 					$blog_entries['results'][$hub_item_id][$s]['hub_themes'] = $object->get_value_ss(OKHUB_API_FN_THEME_DATA, $s);
 					//$blog_entries['results'][$hub_item_id][$s]['hub_country'] = $object->hub_country;
 					$blog_entries['results'][$hub_item_id][$s]['date_created'] = $object->get_value_ss(OKHUB_API_FN_DATE_CREATED, $s);
