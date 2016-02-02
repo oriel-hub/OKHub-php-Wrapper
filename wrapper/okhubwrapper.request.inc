@@ -26,7 +26,7 @@ class OkhubApiRequest {
   // IDS API token guid (key)
   protected $api_key;
 
-  // From where to get the information: eldis, bridge. Default is the defined default (eldis).
+  // From where to get the information.
   protected $site = OKHUB_API_DEFAULT_DATASET;
   
   // datasource we use for priority

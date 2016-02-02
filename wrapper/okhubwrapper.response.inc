@@ -63,8 +63,8 @@ class OkhubApiResponse {
         	$object['priorities'] = $priorities;
         }
         
-        $ids_api_object = OkhubApiObject::factory($object, $type_results);
-        array_push($this->results, $ids_api_object);
+        $okhub_api_object = OkhubApiObject::factory($object, $type_results);
+        array_push($this->results, $okhub_api_object);
         
       }
     }
@@ -162,8 +162,6 @@ class OkhubApiResponse {
    // print_r($array_objects);
     return $array_objects;
   }
-  
-  
 
   /**
   * Create an array with a list of HTML links to the retrieved non-archived objects (eg. titles with links to URLs of OKhub documents/organisations).
@@ -178,6 +176,7 @@ class OkhubApiResponse {
     }
     return $list_objects;
   }
+
   function getBlogEntries($source){
   	$blog_entries =array();
   	foreach($this->results as $i=>$object){
@@ -223,7 +222,8 @@ class OkhubApiResponse {
   	$blog_entries['metadata']['total_results'] = $this->total_results;
   	return $blog_entries;  
   }
- function getDocumentVersion($source){
+
+  function getDocumentVersion($source){
   	$blog_entries =array();
   	foreach($this->results as $i=>$object){
   		if (is_array($source)){
@@ -232,11 +232,10 @@ class OkhubApiResponse {
   				$hub_item_ss_title = $object->get_value_ss(OKHUB_API_FN_TITLE, $s);
   				if ($hub_item_ss_title){
   				//if (!empty($object->titles[$s])){
-  					$blog_entries['results'][$hub_item_id][$s]['object_id'] = $hub_item_id;
+ 					$blog_entries['results'][$hub_item_id][$s]['object_id'] = $hub_item_id;
 					$blog_entries['results'][$hub_item_id][$s]['hub_timestamp'] = $object->get_value('timestamp');
 					$blog_entries['results'][$hub_item_id][$s]['hub_sources'] = $object->get_value_object(OKHUB_API_FN_SOURCES);
 					$blog_entries['results'][$hub_item_id][$s]['title'] = $hub_item_ss_title;
-
 					$blog_entries['results'][$hub_item_id][$s]['document_medium'] = $object->get_value_ss('document_medium', $s);
 					$blog_entries['results'][$hub_item_id][$s]['description'] = $object->get_value_ss(OKHUB_API_FN_DESCRIPTION, $s);
 					$blog_entries['results'][$hub_item_id][$s]['url'] = $object->get_value_ss(OKHUB_API_FN_URLS, $s);
@@ -273,6 +272,7 @@ class OkhubApiResponse {
   	$blog_entries['metadata']['total_results'] = $this->total_results;
   	return $blog_entries;  
   }
+
   function getAllList($source_type){
   	$list = array();
   	foreach($this->results as $object){
@@ -286,7 +286,6 @@ class OkhubApiResponse {
 			}
 			$list[$source_type][$id]['metadata_url'] = $object->get_value(OKHUB_API_FN_METADATA_URL);
   		}
-		
   	}
   	return $list;
   }

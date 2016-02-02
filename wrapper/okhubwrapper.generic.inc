@@ -2,7 +2,7 @@
 
 /**
 * The following functions and variable provide an abstraction level so their implementation can be changed depending on the environment.
-* For instance, in Drupal, we would use its internal caching mechanism instead (see cms/idsapi.drupal.inc).
+* For instance, in Drupal, we would use its internal caching mechanism instead (see cms/okhubapi.drupal.inc).
 */
 
 require_once('okhubwrapper.cache.inc');
@@ -12,7 +12,7 @@ $okhubapi_cache = new OkhubApiCache(array('repository' => dirname(__FILE__) . '/
 
 /**
 * Add data to the cache.
-* before its idsapi
+* before its okhubapi
 */
 function okhubapi_cache_set($cache_id, $data, $bin, $expire) {
   global $okhubapi_cache;

@@ -43,6 +43,8 @@ class OkhubApiObject {
         return new OkhubApiObjectCategory($object);
       case 'regions':
         return new OkhubApiObjectCategory($object);
+      case 'document_types':
+        return new OkhubApiObjectCategory($object);
       case 'countries':
         return new OkhubApiObjectCountry($object);
       case 'sources':

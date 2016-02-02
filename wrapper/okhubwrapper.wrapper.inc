@@ -186,7 +186,7 @@ class OkhubApiWrapper {
   }
 
   /**
-  * Method used to retrieve a set of items in the IDS collection (by a 'search' request to the API).
+  * Method used to retrieve a set of OKHub items (by a 'search' request to the API).
   *
   * @param string $object_type - type of object(s) requested (documents, organisations, themes, regions, countries, subjects).
   * @param string $site - dataset from where to retrieve the information (hub).
@@ -224,7 +224,7 @@ class OkhubApiWrapper {
   }
 
   /**
-  * Method used to retrieve one item in the IDS collection (by a 'get' request to the API).
+  * Method used to retrieve one item in the OKHub (by a 'get' request to the API).
   * @param string $object_type - type of object(s) requested (documents, organisations, themes, regions, countries, subjects).
   * @param string $site - dataset from where to retrieve the information (hub).
   * @param string $api_key - OKHUB API token guid.
@@ -254,7 +254,7 @@ class OkhubApiWrapper {
   }
 
   /**
-  * Method used to retrieve all items of a specific type in the IDS collection (by a 'get_all' request to the API).
+  * Method used to retrieve all items of a specific type in the OKHub (by a 'get_all' request to the API).
   * @param string $object_type - type of object(s) requested (documents, organisations, themes, regions, countries, subjects).
   * @param string $site - dataset from where to retrieve the information (eldis, bridge).
   * @param string $api_key - OKHUB API token guid.
@@ -288,9 +288,9 @@ class OkhubApiWrapper {
   * @param string $api_key - OKhub API token guid.
   * @param string $count_category - category (theme, region, country, keyword, subject).
   * @param array $params - unencoded filters to be added to the request (eg. array('publisher' => 'UNDP', 'country' => 'Costa Rica|Nicaragua')).
-  * @return IdsApiResponse - response object holding the data retrieved by the API call.
+  * @return OkhubApiResponse - response object holding the data retrieved by the API call.
   */
-  public function count($object_type, $site, $api_key, $count_category, $age_results = 0, $params) {
+  public function count($object_type, $site, $api_key, $count_category, $age_results = 0, $params=array()) {
     $this->request = new OkhubApiRequest();
     $this->request->setTypeRequest('count');
     $this->request->setApiKey($api_key);
@@ -314,7 +314,7 @@ class OkhubApiWrapper {
 
   /**
   * Make a call to the API in order to determine if fields available only to partners (such as "subjects") can be accessed.
-  * @param string $api_key - IDS API token guid.
+  * @param string $api_key - OKHub API token guid.
   * @return bool - true if the request retrieved results, false otherwise.
   */
   public function additionalFieldsAvailable($api_key) {
@@ -324,7 +324,7 @@ class OkhubApiWrapper {
 
   /**
   * Builds the URL, checks if the request is in the cache, and if not makes the call and saves it in the cache.
-  * @return IdsApiResponse - response object holding the data retrieved by the API call.
+  * @return OkhubApiResponse - response object holding the data retrieved by the API call.
   */
   public function makeRequest() {
     $cached = FALSE;
