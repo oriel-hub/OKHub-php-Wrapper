@@ -42,6 +42,9 @@ Get Source Name if you pass in a Source Code. (e.g. $OkhubApiWrapper->okhubapi_g
 $OkhubApiWrapper->okhubapi_get_source_name_from_id($source_id, $api_key)
 ```
 
+## OkhubApiResponse Class
+As explained above the $OkhubApiWrapper->makeRequest() method returns an instance of a OkhubApiResponse object this has the attributes results which is an Array of OkhubApiObjects (or its subclasses) and total_results which is a count of the total results available in the collection.
+
 ## OkhubApiObject Class
 Objects of this class' inherited classes contain the information of assets (documents and organisations), 
 categories (regions and themes) and countries available in the Okhub datasets.
