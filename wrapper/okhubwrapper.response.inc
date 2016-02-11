@@ -6,9 +6,6 @@
 * Objects of this class contain the data retrieved by the Okhub API calls.
 *
 */
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 class OkhubApiResponse {
 
   // These properties should be protected, but we need to check first where this class is
