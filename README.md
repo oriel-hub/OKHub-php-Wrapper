@@ -6,6 +6,11 @@ The OKhub API Wrapper attempts to put together a set of useful functions to inte
 the [OKhub API](http://api.okhub.org) and create PHP objects that represent objects in the API, 
 such as Documents, Organisations, Countries and categories.
 
+To use first create a new instance of Class OkhubApiWrapper.
+```php
+$OkhubApiWrapper = new OkhubApiWrapper();
+```
+
 ## OkhubApiWrapper Class
 Objects of this class are used to retrieve content in the OKhub collections  through the OKhub API.
 ### Some useful methods
