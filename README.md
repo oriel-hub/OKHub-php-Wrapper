@@ -24,7 +24,10 @@ $OkhubApiWrapper->get($object_type, $site, $api_key, $format = 'full', $object_i
 $OkhubApiWrapper->getAll($object_type, $site, $api_key, $format = 'full', $priorities = FALSE);
 
 $OkhubApiWrapper->count($object_type, $site, $api_key, $count_category, $age_results = 0, $params=array());
-
+```
+Note: $priorities - is an array with attributes 'priority_datasource' and 'priority_language'. Used if you want to specify what is the preffered datasource and language (if either not found it will still return an alternative if available) e.g.
+```php
+$priorities = array('priority_datasource' => 'bridge', 'priority_language' => 'fr');
 ```
 #### Make Request
 All of the above methods use this method to build the URL to make a call to the API The wrapper object OkhubApiWrapper have an attribute $OkhubApiWrapper->request which is an instance of class OkhubApiRequest. The methods below makes the request to the API through the OkhubApiRequest class and returns an instance of the OkhubApiResponse class.
