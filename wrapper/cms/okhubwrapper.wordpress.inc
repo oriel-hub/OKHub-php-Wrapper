@@ -42,6 +42,35 @@ function okhubapi_register_error($component, $message, $function, $error_code, $
   }
 }
 
+// Display previously registered errors.
+function okhubapi_report_errors() {
+  global $okhubapi_errors;
+  $okhubapi_show_error_codes =  explode(',', OKHUB_API_SHOW_ERROR_CODES);
+  $output = '';
+  foreach ($okhubapi_show_error_codes as $error_code) {
+    if (isset($okhubapi_errors[$error_code])) {
+      $error_messages = $okhubapi_errors[$error_code]->get_error_messages();
+      if (OKHUB_API_HTML_ERRORS) {
+        $output .= '<div class="ids-' . $error_code . '"><ul>';
+      }
+      foreach ($error_messages as $error_message) {
+        if (OKHUB_API_HTML_ERRORS) {
+          $output .= '<li><strong>' . ucfirst($error_code) . ':</strong> ' . $error_message . '</li>';
+        }
+        else {
+          $output .= ucfirst($error_code) . ": $error_message\n";
+        }
+      }
+      if (OKHUB_API_HTML_ERRORS) {
+        $output .= '</ul></div>';
+      }
+    }
+  }
+  if ($output) {
+    echo $output;
+  }
+}
+
 //------------------------------ Options handling --------------------------------
 
 // Set the value of a parameter.
