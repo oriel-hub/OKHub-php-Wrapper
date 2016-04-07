@@ -618,9 +618,6 @@ class OkhubApiWrapper {
 			if(isset($sources_response->results)){
 				$this->sources_data = $sources_response->results;
 			}
-			if(isset($sources_response->results)){
-				$this->sources_data = $sources_response->results;
-			}
 		}
 		return $this->sources_data;
 	}
