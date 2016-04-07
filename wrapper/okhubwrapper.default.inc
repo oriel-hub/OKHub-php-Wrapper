@@ -11,6 +11,7 @@ define('OKHUB_API_USE_CACHE', TRUE);
 define('OKHUB_API_CACHE_REQUESTS', 'okhubapi_cache');
 define('OKHUB_API_DEFAULT_CACHE_TIME', 86400); //One day
 define('OKHUB_API_CACHE_DIR', 'cache');
+define('OKHUB_API_SOURCES_CACHE_FILE_ID', 'OkhubApiWrapper:00000-sources-full-data');
 
 // Error levels to display and format of error messages
 define('OKHUB_API_SHOW_ERROR_CODES', 'error,warning,notification');

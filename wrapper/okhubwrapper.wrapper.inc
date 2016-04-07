@@ -608,7 +608,16 @@ class OkhubApiWrapper {
 	 */
 	public function okhubapi_get_full_sources_data($api_key){
 		if(!$this->sources_data){
-  			$sources_response = $this->getAll('sources', OKHUB_API_DEFAULT_DATASET, $api_key, 'full');
+			$cache_sources_response = okhubapi_cache_get(OKHUB_API_SOURCES_CACHE_FILE_ID, OKHUB_API_CACHE_REQUESTS);
+			if(isset($cache_sources_response->results)){
+				$sources_response = $cache_sources_response;
+			} else {
+  				$sources_response = $this->getAll('sources', OKHUB_API_DEFAULT_DATASET, $api_key, 'full');
+  				okhubapi_cache_set(OKHUB_API_SOURCES_CACHE_FILE_ID, $sources_response, OKHUB_API_CACHE_REQUESTS, OKHUB_API_DEFAULT_CACHE_TIME);
+			}
+			if(isset($sources_response->results)){
+				$this->sources_data = $sources_response->results;
+			}
 			if(isset($sources_response->results)){
 				$this->sources_data = $sources_response->results;
 			}
